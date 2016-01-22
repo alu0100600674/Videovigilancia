@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Videovigilancia</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="ver_video">Ver Vídeo</string>
+</resources>
