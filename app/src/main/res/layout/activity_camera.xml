@@ -9,8 +9,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.tfg.jonay.videovigilancia.CameraActivity">
 
-    <CalendarView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></CalendarView>
+
 
 </RelativeLayout>

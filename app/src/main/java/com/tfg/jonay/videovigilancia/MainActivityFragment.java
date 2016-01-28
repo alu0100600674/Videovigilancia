@@ -22,11 +22,12 @@ public class MainActivityFragment extends Fragment {
 
         View v_principal = inflater.inflate(R.layout.fragment_main, container, false);
 
-        Button btn_camera = (Button) getView().findViewById(R.id.btn_camera);
+        Button btn_camera = (Button) v_principal.findViewById(R.id.btn_camera);
         btn_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                Intent intent_camera = new Intent(getActivity(), CameraActivity.class);
+                startActivity(intent_camera);
             }
         });
 
