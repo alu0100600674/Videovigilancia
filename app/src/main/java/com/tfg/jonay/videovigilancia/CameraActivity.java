@@ -23,10 +23,13 @@ import java.security.Policy;
 public class CameraActivity extends AppCompatActivity {
 
     private Button boton;
+    private Button btn_flash;
     private SurfaceView surfaceView;
     private SurfaceHolder surfaceHolder;
     private Camera camara;
+    private Camera c_flash;
     private boolean encendida;
+    private boolean flash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +37,11 @@ public class CameraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_camera);
 
         boton = (Button) findViewById(R.id.ver_video);
+        btn_flash = (Button) findViewById(R.id.btn_flash);
         surfaceView = (SurfaceView) findViewById(R.id.view_cam);
         surfaceHolder = surfaceView.getHolder();
         encendida = false;
+        flash = false;
 
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,18 +53,38 @@ public class CameraActivity extends AppCompatActivity {
                 }
             }
         });
+
+        btn_flash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startFlash();
+            }
+        });
+
+
     }
 
     private void startCamara() throws IOException{
         if(!encendida){
             camara = Camera.open();
+            camara.setDisplayOrientation(90);
             camara.setPreviewDisplay(surfaceHolder);
             camara.startPreview();
-            encendida = true;
         }else{
             camara.stopPreview();
             camara.release();
-            encendida = false;
         }
+        encendida = !encendida;
+    }
+
+    private void startFlash(){
+        Camera.Parameters p = camara.getParameters();
+        if(!flash){
+            p.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+        }else{
+            p.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+        }
+        camara.setParameters(p);
+        flash = !flash;
     }
 }

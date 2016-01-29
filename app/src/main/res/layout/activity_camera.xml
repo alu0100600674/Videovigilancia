@@ -10,8 +10,8 @@
     tools:context="com.tfg.jonay.videovigilancia.CameraActivity">
 
     <SurfaceView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/view_cam"/>
 
     <Button
@@ -19,5 +19,14 @@
         android:layout_height="wrap_content"
         android:id="@+id/ver_video"
         android:text="@string/ver_video"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_flash"
+        android:text="@string/flash_off"
+        android:layout_alignTop="@+id/ver_video"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
