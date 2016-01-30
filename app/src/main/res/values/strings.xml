@@ -2,6 +2,7 @@
     <string name="app_name">Videovigilancia</string>
     <string name="action_settings">Ajustes</string>
     <string name="ver_video">Ver Vídeo</string>
+    <string name="parar_video">Parar Vídeo</string>
     <string name="flash_on">F.ON</string>
     <string name="flash_off">F.OFF</string>
 </resources>

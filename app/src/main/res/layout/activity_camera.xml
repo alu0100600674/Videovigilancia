@@ -10,15 +10,22 @@
     tools:context="com.tfg.jonay.videovigilancia.CameraActivity">
 
     <SurfaceView
+
+        android:id="@+id/view_cam"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/view_cam"/>
+        android:layout_height="wrap_content" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ver_video"
-        android:text="@string/ver_video"/>
+        android:text="@string/ver_video"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/view_cam"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"

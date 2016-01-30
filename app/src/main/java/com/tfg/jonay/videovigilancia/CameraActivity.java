@@ -22,7 +22,7 @@ import java.security.Policy;
 
 public class CameraActivity extends AppCompatActivity {
 
-    private Button boton;
+    private Button btn_video;
     private Button btn_flash;
     private SurfaceView surfaceView;
     private SurfaceHolder surfaceHolder;
@@ -36,14 +36,25 @@ public class CameraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
-        boton = (Button) findViewById(R.id.ver_video);
+        btn_video = (Button) findViewById(R.id.ver_video);
         btn_flash = (Button) findViewById(R.id.btn_flash);
         surfaceView = (SurfaceView) findViewById(R.id.view_cam);
         surfaceHolder = surfaceView.getHolder();
+        surfaceHolder.setSizeFromLayout();
         encendida = false;
         flash = false;
 
-        boton.setOnClickListener(new View.OnClickListener() {
+        camara = Camera.open();
+        camara.startPreview();
+
+        int width_cam = camara.getParameters().getPreviewSize().width;
+        int height_cam = camara.getParameters().getPreviewSize().height;
+        final float scale = getResources().getDisplayMetrics().density;
+        surfaceView.getLayoutParams().width = (int) (height_cam / 5 * scale);
+        surfaceView.getLayoutParams().height = (int) (width_cam / 5 * scale);
+
+
+        btn_video.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
@@ -64,15 +75,37 @@ public class CameraActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // Parar la cámara al cerrar el Activity.
+        try {
+            camara.stopPreview();
+            camara.release();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     private void startCamara() throws IOException{
         if(!encendida){
-            camara = Camera.open();
+//            camara = Camera.open();
+
+
+
+
             camara.setDisplayOrientation(90);
             camara.setPreviewDisplay(surfaceHolder);
             camara.startPreview();
+            btn_video.setText(R.string.parar_video);
         }else{
             camara.stopPreview();
-            camara.release();
+//            camara.release();
+            btn_video.setText(R.string.ver_video);
+            btn_flash.setText(R.string.flash_off);
+            flash = false;
         }
         encendida = !encendida;
     }
@@ -81,10 +114,16 @@ public class CameraActivity extends AppCompatActivity {
         Camera.Parameters p = camara.getParameters();
         if(!flash){
             p.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+            btn_flash.setText(R.string.flash_on);
         }else{
             p.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+            btn_flash.setText(R.string.flash_off);
         }
         camara.setParameters(p);
         flash = !flash;
     }
+
+//    private boolean cameraIsOpen(){
+//
+//    }
 }
