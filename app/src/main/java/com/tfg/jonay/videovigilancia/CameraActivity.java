@@ -1,6 +1,7 @@
 package com.tfg.jonay.videovigilancia;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraDevice;
@@ -27,7 +28,7 @@ public class CameraActivity extends AppCompatActivity {
     private SurfaceView surfaceView;
     private SurfaceHolder surfaceHolder;
     private Camera camara;
-    private Camera c_flash;
+    private Camera.Parameters p;
     private boolean encendida;
     private boolean flash;
 
@@ -36,20 +37,26 @@ public class CameraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
+        Typeface font = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf");
+
+
         btn_video = (Button) findViewById(R.id.ver_video);
         btn_flash = (Button) findViewById(R.id.btn_flash);
+        btn_flash.setTypeface(font);
+        btn_video.setTypeface(font);
         surfaceView = (SurfaceView) findViewById(R.id.view_cam);
         surfaceHolder = surfaceView.getHolder();
-        surfaceHolder.setSizeFromLayout();
+//        surfaceHolder.setSizeFromLayout();
         encendida = false;
         flash = false;
 
         camara = Camera.open();
+        p = camara.getParameters();
         camara.startPreview();
 
         int width_cam = camara.getParameters().getPreviewSize().width;
         int height_cam = camara.getParameters().getPreviewSize().height;
-        final float scale = getResources().getDisplayMetrics().density;
+        final float scale = getResources().getDisplayMetrics().density; // Para las dimensiones en dp.
         surfaceView.getLayoutParams().width = (int) (height_cam / 5 * scale);
         surfaceView.getLayoutParams().height = (int) (width_cam / 5 * scale);
 
@@ -71,8 +78,15 @@ public class CameraActivity extends AppCompatActivity {
                 startFlash();
             }
         });
+        btn_flash.setBackgroundColor(0xAAFF0000);
+        btn_video.setBackgroundColor(0xAAFF0000);
 
-
+//        surfaceView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                camara.
+//            }
+//        });
     }
 
     @Override
@@ -94,30 +108,37 @@ public class CameraActivity extends AppCompatActivity {
 //            camara = Camera.open();
 
 
-
-
             camara.setDisplayOrientation(90);
+            p.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
+            camara.setParameters(p);
             camara.setPreviewDisplay(surfaceHolder);
             camara.startPreview();
-            btn_video.setText(R.string.parar_video);
+//            btn_video.setText(R.string.parar_video);
+            btn_video.setBackgroundColor(0xAA009900);
         }else{
             camara.stopPreview();
 //            camara.release();
-            btn_video.setText(R.string.ver_video);
-            btn_flash.setText(R.string.flash_off);
+            p.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+            camara.setParameters(p);
+//            btn_video.setText(R.string.ver_video);
+//            btn_flash.setText(R.string.flash_off);
+            btn_flash.setBackgroundColor(0xAAFF0000);
+            btn_video.setBackgroundColor(0xAAFF0000);
             flash = false;
         }
         encendida = !encendida;
     }
 
     private void startFlash(){
-        Camera.Parameters p = camara.getParameters();
+//        Camera.Parameters p = camara.getParameters();
         if(!flash){
             p.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-            btn_flash.setText(R.string.flash_on);
+//            btn_flash.setText(R.string.flash_on);
+            btn_flash.setBackgroundColor(0xAA009900);
         }else{
             p.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-            btn_flash.setText(R.string.flash_off);
+//            btn_flash.setText(R.string.flash_off);
+            btn_flash.setBackgroundColor(0xAAFF0000);
         }
         camara.setParameters(p);
         flash = !flash;
