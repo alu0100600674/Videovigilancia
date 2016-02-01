@@ -3,6 +3,9 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <!-- Tamaño de los botones -->
     <dimen name="icon_text">30dp</dimen>
     <dimen name="icon_btn">80dp</dimen>
+    <dimen name="btn_p_principal">60dp</dimen>
 </resources>

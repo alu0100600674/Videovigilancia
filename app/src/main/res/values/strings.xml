@@ -7,4 +7,6 @@
     <string name="flash_off">F.OFF</string>
     <string name="icon_flash">&#xf0e7;</string>
     <string name="icon_video">&#xf03d;</string>
+    <string name="config_serv">Configurar servidor</string>
+    <string name="config_robot">Configurar robot</string>
 </resources>

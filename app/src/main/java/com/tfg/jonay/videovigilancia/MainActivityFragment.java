@@ -31,6 +31,24 @@ public class MainActivityFragment extends Fragment {
             }
         });
 
+        Button btn_servidor = (Button) v_principal.findViewById(R.id.btn_servidor);
+        btn_servidor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_servidor = new Intent(getActivity(), ServidorActivity.class);
+                startActivity(intent_servidor);
+            }
+        });
+
+        Button btn_robot = (Button) v_principal.findViewById(R.id.btn_robot);
+        btn_robot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_robot = new Intent(getActivity(), RobotActivity.class);
+                startActivity(intent_robot);
+            }
+        });
+
         return v_principal;
     }
 }
