@@ -35,38 +35,34 @@ public class RobotActivity extends AppCompatActivity {
                 Intent bt_enable_intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(bt_enable_intent, 1);
             }
-
-
         }
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume() { // Cambiar de forma que solo se ejecute una vez.
         super.onResume();
-        System.out.println("Dentroooooo");
 
-        dispositivos = (ListView) findViewById(R.id.lista_bt_devices);
-        lista_devices = new ArrayList<>();
+        if(bt_adapter.isEnabled()){
+            dispositivos = (ListView) findViewById(R.id.lista_bt_devices);
+            lista_devices = new ArrayList<>();
 
-        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-        registerReceiver(mReceiver, filter);
+            IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+            registerReceiver(mReceiver, filter);
 
-//            while(bt_adapter.getState() != BluetoothAdapter.STATE_ON){} // Esperar mientras el bt este desconectado.
-
-        if (bt_adapter.isDiscovering()) {
-            // El Bluetooth ya está en modo discover, lo cancelamos para iniciarlo de nuevo
-            bt_adapter.cancelDiscovery();
+            if (bt_adapter.isDiscovering()) {
+                // El Bluetooth ya está en modo discover, lo cancelamos para iniciarlo de nuevo
+                bt_adapter.cancelDiscovery();
+            }
+            bt_adapter.startDiscovery();
         }
-        bt_adapter.startDiscovery();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        System.out.println("Listado");
+        System.out.println("Listado:");
         for(int i = 0; i < lista_devices.size(); i++){
-//            System.out.println(lista_devices[i]);
-            System.out.println(i);
+            System.out.println(lista_devices.get(i).getName());
         }
     }
 
