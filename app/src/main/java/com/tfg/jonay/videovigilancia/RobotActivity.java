@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,9 @@ public class RobotActivity extends AppCompatActivity {
     private BluetoothAdapter bt_adapter;
     private ListView dispositivos;
     private ArrayList<BluetoothDevice> lista_devices;
+
+    private ArrayList<String> listado;
+    ArrayAdapter<String> adaptador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,8 @@ public class RobotActivity extends AppCompatActivity {
                 Intent bt_enable_intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(bt_enable_intent, 1);
             }
+
+
         }
     }
 
@@ -45,6 +51,10 @@ public class RobotActivity extends AppCompatActivity {
         if(bt_adapter.isEnabled()){
             dispositivos = (ListView) findViewById(R.id.lista_bt_devices);
             lista_devices = new ArrayList<>();
+
+            listado = new ArrayList<>();
+            adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listado);
+            dispositivos.setAdapter(adaptador);
 
             IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
             registerReceiver(mReceiver, filter);
@@ -74,7 +84,9 @@ public class RobotActivity extends AppCompatActivity {
                 // Se ha encontrado un dispositivo Bluetooth. Se obtiene la información del dispositivo del intent.
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 lista_devices.add(device); // Añadir a la lista de dispositivos encontrados.
-                Toast.makeText(getApplicationContext(), device.getName() + "\n" + device.getAddress(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), device.getName() + "\n" + device.getAddress(), Toast.LENGTH_LONG).show();
+                listado.add(device.getName());
+                adaptador.notifyDataSetChanged();
             }
         }
     };
