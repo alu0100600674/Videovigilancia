@@ -147,4 +147,5 @@ public class CameraActivity extends AppCompatActivity {
 //    private boolean cameraIsOpen(){
 //
 //    }
+
 }
