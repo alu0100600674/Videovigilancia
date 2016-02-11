@@ -49,6 +49,15 @@ public class MainActivityFragment extends Fragment {
             }
         });
 
+        Button btn_notificaciones = (Button) v_principal.findViewById(R.id.btn_notificaciones);
+        btn_notificaciones.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_notificaciones = new Intent(getActivity(), NotificacionesActivity.class);
+                startActivity(intent_notificaciones);
+            }
+        });
+
         return v_principal;
     }
 }

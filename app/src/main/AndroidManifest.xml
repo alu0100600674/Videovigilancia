@@ -3,7 +3,9 @@
     package="com.tfg.jonay.videovigilancia">
 
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
+
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.SEND_SMS" />
@@ -29,7 +31,8 @@
             android:name=".CameraActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".RobotActivity" />
-        <activity android:name=".ServidorActivity"></activity>
+        <activity android:name=".ServidorActivity" />
+        <activity android:name=".NotificacionesActivity"></activity>
     </application>
 
 </manifest>
