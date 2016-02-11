@@ -9,4 +9,5 @@
     <string name="icon_video">&#xf03d;</string>
     <string name="config_serv">Configurar servidor</string>
     <string name="config_robot">Configurar robot</string>
+    <string name="config_notif">Configurar notificaciones</string>
 </resources>

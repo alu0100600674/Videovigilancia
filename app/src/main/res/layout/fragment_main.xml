@@ -33,4 +33,13 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/btn_p_principal"
+        android:id="@+id/btn_notificaciones"
+        android:text="@string/config_notif"
+        android:layout_below="@+id/btn_robot"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>
