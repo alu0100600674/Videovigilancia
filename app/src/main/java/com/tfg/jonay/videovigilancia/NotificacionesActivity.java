@@ -12,10 +12,14 @@ import android.widget.Button;
 
 public class NotificacionesActivity extends AppCompatActivity {
 
+    private Notificaciones notif;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notificaciones);
+
+        notif = new Notificaciones(getString(R.string.app_name));
 
         Button btn_add_destino = (Button) findViewById(R.id.btn_add_destinatario);
         btn_add_destino.setOnClickListener(new View.OnClickListener() {
@@ -44,14 +48,25 @@ public class NotificacionesActivity extends AppCompatActivity {
                 if(resultCode == Activity.RESULT_OK){
                     Uri contactData = data.getData();
                     Cursor c = getContentResolver().query(contactData, null, null, null, null);
-                    String numero = null;
+                    String nombre = null;
                     String id = null;
                     if(c.moveToFirst()){
                         id = c.getString(c.getColumnIndex(ContactsContract.Contacts._ID));
-                        numero = c.getString(c.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                        nombre = c.getString(c.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
                     }
+                    String numero = null;
+                    if(nombre != null){
+                        Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + id, null, null);
+                        while(phones.moveToNext()){
+                            numero = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                        }
+                        phones.close();
+                    }
+                    c.close();
                     if(numero != null){
-                        // Aquí va el método que añade el destinatario.
+                        System.out.println(numero);
+                        // Aquí va el método para añadir el destinatario.
+                        notif.addDestinatario(numero);
                     }
                 }
                 break;
