@@ -9,4 +9,19 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.tfg.jonay.videovigilancia.NotificacionesActivity">
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/btn_p_principal"
+        android:id="@+id/btn_add_destinatario"
+        android:text="@string/add_destino"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/btn_p_principal"
+        android:id="@+id/btn_del_destinatario"
+        android:text="@string/del_destino"
+        android:layout_below="@+id/btn_add_destinatario"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>
