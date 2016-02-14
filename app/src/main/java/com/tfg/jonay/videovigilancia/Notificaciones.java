@@ -38,14 +38,16 @@ public class Notificaciones {
         return false;
     }
 
-    public void delDestinatario(String numero){
+    public boolean delDestinatario(String numero){
         for(int i = 0; i < destinatarios.size(); i++){
             if(destinatarios.get(i) == numero){
                 String mensaje = nombre_app + ": Ha sido eliminado de la lista de notificaciones.";
                 sms_manager.sendTextMessage(numero, null, mensaje, null, null);
                 destinatarios.remove(i);
+                return true;
             }
         }
+        return false;
     }
 
     public void enviarSmsMovimiento(){

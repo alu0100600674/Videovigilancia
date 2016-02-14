@@ -8,12 +8,16 @@ import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 public class NotificacionesActivity extends AppCompatActivity {
 
     private Notificaciones notif;
+    private ListView lista;
+    private ArrayAdapter<String> adaptador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +25,10 @@ public class NotificacionesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notificaciones);
 
         notif = new Notificaciones(getString(R.string.app_name));
+        adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, notif.getDestinatarios());
+
+        lista = (ListView) findViewById(R.id.lista_destinatarios);
+        lista.setAdapter(adaptador);
 
         Button btn_add_destino = (Button) findViewById(R.id.btn_add_destinatario);
         btn_add_destino.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +75,7 @@ public class NotificacionesActivity extends AppCompatActivity {
                     if(numero != null){
                         if(notif.addDestinatario(numero)){
                             Toast.makeText(NotificacionesActivity.this, numero + " añadido!", Toast.LENGTH_SHORT).show();
+                            adaptador.notifyDataSetChanged();
                         }
                     }
                 }
