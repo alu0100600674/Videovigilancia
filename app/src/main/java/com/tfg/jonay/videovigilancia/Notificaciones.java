@@ -22,18 +22,20 @@ public class Notificaciones {
         destinatarios = new ArrayList<>();
     }
 
-    public void addDestinatario(String numero){
+    public boolean addDestinatario(String numero){
         String mensaje = nombre_app + ": Ha sido añadido a la lista de notificaciones.";
         boolean encontrado = false;
         for(int i = 0; i < destinatarios.size(); i++){ // Comprobar que el número no estaba ya en la lista.
-            if(destinatarios.get(i) == numero){
+            if(destinatarios.get(i).equals(numero)){
                 encontrado = true;
             }
         }
         if(!encontrado){
             destinatarios.add(numero);
             sms_manager.sendTextMessage(numero, null, mensaje, null, null);
+            return true;
         }
+        return false;
     }
 
     public void delDestinatario(String numero){

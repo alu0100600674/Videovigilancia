@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class NotificacionesActivity extends AppCompatActivity {
 
@@ -64,9 +65,9 @@ public class NotificacionesActivity extends AppCompatActivity {
                     }
                     c.close();
                     if(numero != null){
-                        System.out.println(numero);
-                        // Aquí va el método para añadir el destinatario.
-                        notif.addDestinatario(numero);
+                        if(notif.addDestinatario(numero)){
+                            Toast.makeText(NotificacionesActivity.this, numero + " añadido!", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
                 break;
