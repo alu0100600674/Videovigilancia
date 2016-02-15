@@ -51,10 +51,7 @@ public class NotificacionesActivity extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int selected) {
                                         if (selected == 0) { // Eliminar
                                             String num = lista.getItemAtPosition(position).toString();
-                                            if (notif.delDestinatario(num)) {
-                                                adaptador.notifyDataSetChanged();
-                                                Toast.makeText(NotificacionesActivity.this, num + " eliminado!", Toast.LENGTH_SHORT).show();
-                                            }
+                                            eliminar(num);
                                         }
                                     }
                                 }).create();
@@ -129,6 +126,32 @@ public class NotificacionesActivity extends AppCompatActivity {
                 }
                 break;
         }
+    }
+
+    private void eliminar(String num){
+        final String numero2 = num;
+        AlertDialog.Builder add_dialogo = new AlertDialog.Builder(this);
+        add_dialogo.setTitle("Eliminar destinatario");
+        add_dialogo.setMessage("¿Eliminar el destinatario " + num + "?");
+        add_dialogo.setCancelable(false);
+
+        DialogInterface.OnClickListener click_ok = new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (notif.delDestinatario(numero2)) {
+                    adaptador.notifyDataSetChanged();
+                    Toast.makeText(NotificacionesActivity.this, numero2 + " eliminado!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+
+        add_dialogo.setPositiveButton("Confirmar", click_ok);
+        add_dialogo.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface add_dialogo, int id) {
+                Toast.makeText(NotificacionesActivity.this, "Operación cancelada!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        add_dialogo.show();
     }
 
 }
