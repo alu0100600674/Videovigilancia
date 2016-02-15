@@ -68,7 +68,8 @@ public class NotificacionesActivity extends AppCompatActivity {
         btn_add_destino.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent_contactos = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);;
+                Intent intent_contactos = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                ;
                 startActivityForResult(intent_contactos, 1);
             }
         });
@@ -100,10 +101,30 @@ public class NotificacionesActivity extends AppCompatActivity {
                     }
                     c.close();
                     if(numero != null){
-                        if(notif.addDestinatario(numero)){
-                            Toast.makeText(NotificacionesActivity.this, numero + " añadido!", Toast.LENGTH_SHORT).show();
-                            adaptador.notifyDataSetChanged();
-                        }
+                        final String numero2 = numero;
+
+                        AlertDialog.Builder add_dialogo = new AlertDialog.Builder(this);
+                        add_dialogo.setTitle("Añadir destinatario");
+                        add_dialogo.setMessage("¿Añadir el destinatario " + numero + "?");
+                        add_dialogo.setCancelable(false);
+
+                        DialogInterface.OnClickListener click_ok = new DialogInterface.OnClickListener(){
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if(notif.addDestinatario(numero2)){
+                                    Toast.makeText(NotificacionesActivity.this, numero2 + " añadido!", Toast.LENGTH_SHORT).show();
+                                    adaptador.notifyDataSetChanged();
+                                }
+                            }
+                        };
+
+                        add_dialogo.setPositiveButton("Confirmar", click_ok);
+                        add_dialogo.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface add_dialogo, int id) {
+                                Toast.makeText(NotificacionesActivity.this, "Operación cancelada!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        add_dialogo.show();
                     }
                 }
                 break;
