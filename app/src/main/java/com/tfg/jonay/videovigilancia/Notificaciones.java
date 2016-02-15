@@ -11,7 +11,6 @@ import java.util.ArrayList;
  */
 public class Notificaciones {
 
-    private String numero = "628435740";
     private SmsManager sms_manager;
     private ArrayList<String> destinatarios;
     private String nombre_app;
