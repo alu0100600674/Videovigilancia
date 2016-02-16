@@ -23,13 +23,20 @@ public class NotificacionesActivity extends AppCompatActivity {
     private Notificaciones notif;
     private ListView lista;
     private ArrayAdapter<String> adaptador;
+    private GlobalClass globales;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notificaciones);
 
-        notif = new Notificaciones(getString(R.string.app_name));
+        globales = (GlobalClass) getApplicationContext();
+        if(globales.getNotificaciones() == null){
+            globales.ini();
+        }
+        notif = globales.getNotificaciones();
+
+//        notif = new Notificaciones(getString(R.string.app_name));
         adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, notif.getDestinatarios());
 
         lista = (ListView) findViewById(R.id.lista_destinatarios);
