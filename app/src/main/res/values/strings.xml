@@ -12,4 +12,5 @@
     <string name="config_notif">Configurar notificaciones</string>
     <string name="add_destino">Añadir destinatario</string>
     <string name="del_destino">Eliminar destinatario</string>
+    <string name="simular_mov">&#xf0c0;</string>
 </resources>

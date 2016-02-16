@@ -25,6 +25,7 @@ public class CameraActivity extends AppCompatActivity {
 
     private Button btn_video;
     private Button btn_flash;
+    private Button btn_movimiento;
     private SurfaceView surfaceView;
     private SurfaceHolder surfaceHolder;
     private Camera camara;
@@ -32,18 +33,29 @@ public class CameraActivity extends AppCompatActivity {
     private boolean encendida;
     private boolean flash;
 
+    private GlobalClass globales;
+    private Notificaciones notif;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
+
+        globales = (GlobalClass) getApplicationContext();
+        if(globales.getNotificaciones() == null){
+            globales.ini();
+        }
+        notif = globales.getNotificaciones();
 
         Typeface font = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf");
 
 
         btn_video = (Button) findViewById(R.id.ver_video);
         btn_flash = (Button) findViewById(R.id.btn_flash);
+        btn_movimiento = (Button) findViewById(R.id.btn_simular_mov);
         btn_flash.setTypeface(font);
         btn_video.setTypeface(font);
+        btn_movimiento.setTypeface(font);
         surfaceView = (SurfaceView) findViewById(R.id.view_cam);
         surfaceHolder = surfaceView.getHolder();
 //        surfaceHolder.setSizeFromLayout();
@@ -80,6 +92,13 @@ public class CameraActivity extends AppCompatActivity {
         });
         btn_flash.setBackgroundColor(0xAAFF0000);
         btn_video.setBackgroundColor(0xAAFF0000);
+
+        btn_movimiento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                notif.enviarSmsMovimiento();
+            }
+        });
 
 //        surfaceView.setOnClickListener(new View.OnClickListener() {
 //            @Override
