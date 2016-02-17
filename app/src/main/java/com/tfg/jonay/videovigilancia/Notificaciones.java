@@ -69,4 +69,8 @@ public class Notificaciones {
         }
     }
 
+    public void limpiarDestinatarios(){
+        destinatarios.clear();
+    }
+
 }
