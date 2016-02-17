@@ -1,5 +1,6 @@
 package com.tfg.jonay.videovigilancia;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
         if(globales.getNotificaciones() == null){
             globales.ini();
         }
+
+        globales.ini_bdd();
     }
 
     @Override

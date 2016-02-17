@@ -24,6 +24,7 @@ public class NotificacionesActivity extends AppCompatActivity {
     private ListView lista;
     private ArrayAdapter<String> adaptador;
     private GlobalClass globales;
+    private BaseDeDatos app_data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class NotificacionesActivity extends AppCompatActivity {
             globales.ini();
         }
         notif = globales.getNotificaciones();
+        app_data = globales.getBaseDeDatos();
 
 //        notif = new Notificaciones(getString(R.string.app_name));
         adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, notif.getDestinatarios());
@@ -106,6 +108,7 @@ public class NotificacionesActivity extends AppCompatActivity {
                     c.close();
                     if(numero != null){
                         final String numero2 = numero;
+                        final String nombre2 = nombre;
 
                         AlertDialog.Builder add_dialogo = new AlertDialog.Builder(this);
                         add_dialogo.setTitle("Añadir destinatario");
@@ -116,6 +119,7 @@ public class NotificacionesActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 if(notif.addDestinatario(numero2)){
+                                    app_data.addDestinatario(nombre2, numero2);
                                     Toast.makeText(NotificacionesActivity.this, numero2 + " añadido!", Toast.LENGTH_SHORT).show();
                                     adaptador.notifyDataSetChanged();
                                 }
@@ -146,6 +150,7 @@ public class NotificacionesActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (notif.delDestinatario(numero2)) {
+                    app_data.delDestinatario(numero2);
                     adaptador.notifyDataSetChanged();
                     Toast.makeText(NotificacionesActivity.this, numero2 + " eliminado!", Toast.LENGTH_SHORT).show();
                 }
