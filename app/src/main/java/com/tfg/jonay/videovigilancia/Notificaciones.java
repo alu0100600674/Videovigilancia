@@ -1,6 +1,7 @@
 package com.tfg.jonay.videovigilancia;
 
 import android.content.res.Resources;
+import android.database.sqlite.SQLiteDatabase;
 import android.telephony.SmsManager;
 import android.text.format.Time;
 
@@ -60,6 +61,12 @@ public class Notificaciones {
 
     public ArrayList<String> getDestinatarios(){
         return destinatarios;
+    }
+
+    public void cargarDesdeBDD(ArrayList<String> lista){
+        for(int i = 0; i < lista.size(); i++){
+            destinatarios.add(lista.get(i));
+        }
     }
 
 }

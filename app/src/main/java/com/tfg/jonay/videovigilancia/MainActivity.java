@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         globales.ini_bdd();
+        globales.getNotificaciones().cargarDesdeBDD(globales.getBaseDeDatos().selectDestinatarios());
     }
 
     @Override
