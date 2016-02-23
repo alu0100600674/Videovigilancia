@@ -62,9 +62,7 @@ public class NotificacionesActivity extends AppCompatActivity {
 //                                            String num = lista.getItemAtPosition(position).toString();
 //                                            eliminar(num);
                                             Contacto con = (Contacto) lista.getItemAtPosition(position);
-                                            eliminar(con.getNumero());
-                                            System.out.println(con.getNombre());
-                                            System.out.println(con.getEstado());
+                                            eliminar(con);
                                         }else if(selected == 1){ // Des/habilitar
                                             String num = lista.getItemAtPosition(position).toString();
                                             deshabilitar(num);
@@ -118,7 +116,7 @@ public class NotificacionesActivity extends AppCompatActivity {
 
                         AlertDialog.Builder add_dialogo = new AlertDialog.Builder(this);
                         add_dialogo.setTitle("Añadir destinatario");
-                        add_dialogo.setMessage("¿Añadir el destinatario " + numero + "?");
+                        add_dialogo.setMessage("¿Añadir el destinatario " + nombre2 + " (" + numero + ")?");
                         add_dialogo.setCancelable(false);
 
                         DialogInterface.OnClickListener click_ok = new DialogInterface.OnClickListener(){
@@ -126,7 +124,7 @@ public class NotificacionesActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 if(notif.addDestinatario(new Contacto(nombre2, numero2))){
                                     app_data.addDestinatario(nombre2, numero2);
-                                    Toast.makeText(NotificacionesActivity.this, numero2 + " añadido!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(NotificacionesActivity.this, nombre2 + " (" + numero2 + ") añadido!", Toast.LENGTH_SHORT).show();
                                     adaptador.notifyDataSetChanged();
                                 }
                             }
@@ -145,11 +143,12 @@ public class NotificacionesActivity extends AppCompatActivity {
         }
     }
 
-    private void eliminar(String num){
-        final String numero2 = num;
+    private void eliminar(Contacto contacto){
+        final String numero2 = contacto.getNumero();
+        final String nombre2 = contacto.getNombre();
         AlertDialog.Builder add_dialogo = new AlertDialog.Builder(this);
         add_dialogo.setTitle("Eliminar destinatario");
-        add_dialogo.setMessage("¿Eliminar el destinatario " + num + "?");
+        add_dialogo.setMessage("¿Eliminar el destinatario " + nombre2 + " (" + numero2 + ")?");
         add_dialogo.setCancelable(false);
 
         DialogInterface.OnClickListener click_ok = new DialogInterface.OnClickListener(){
@@ -158,7 +157,7 @@ public class NotificacionesActivity extends AppCompatActivity {
                 if (notif.delDestinatario(new Contacto(numero2))) {
                     app_data.delDestinatario(numero2);
                     adaptador.notifyDataSetChanged();
-                    Toast.makeText(NotificacionesActivity.this, numero2 + " eliminado!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NotificacionesActivity.this, nombre2 + " (" + numero2 + ") eliminado!", Toast.LENGTH_SHORT).show();
                 }
             }
         };
