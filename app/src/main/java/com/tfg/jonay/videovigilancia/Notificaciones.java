@@ -75,9 +75,9 @@ public class Notificaciones {
         return destinatarios;
     }
 
-    public void cargarDesdeBDD(ArrayList<String> lista){
+    public void cargarDesdeBDD(ArrayList<Contacto> lista){
         for(int i = 0; i < lista.size(); i++){
-            destinatarios.add(new Contacto(lista.get(i)));
+            destinatarios.add(lista.get(i));
         }
     }
 

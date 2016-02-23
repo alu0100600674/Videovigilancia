@@ -196,7 +196,8 @@ public class NotificacionesActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (notif.cambiarEstado(new Contacto(nombre2, numero2, estado2))) {
-                    app_data.delDestinatario(numero2);
+                    int est = estado2 ? 0 : 1;
+                    app_data.updateDestinatarioEstado(numero2, est);
                     adaptador.notifyDataSetChanged();
                     if(estado2){
                         Toast.makeText(NotificacionesActivity.this, nombre2 + " (" + numero2 + ") deshabilitado!", Toast.LENGTH_SHORT).show();
