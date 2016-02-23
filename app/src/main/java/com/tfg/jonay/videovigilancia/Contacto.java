@@ -21,6 +21,12 @@ public class Contacto {
         activo = true;
     }
 
+    public Contacto(String nom, String num, boolean est){
+        nombre = nom;
+        numero = num;
+        activo = est;
+    }
+
     public String getNombre(){
         return nombre;
     }
@@ -31,5 +37,9 @@ public class Contacto {
 
     public boolean getEstado(){
         return activo;
+    }
+
+    public void setEstado(boolean estado){
+        activo = estado;
     }
 }

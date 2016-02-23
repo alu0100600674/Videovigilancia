@@ -51,7 +51,15 @@ public class NotificacionesActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
 
-                String[] opc = new String[]{"Eliminar", "Des/habilitar"};
+                Contacto cont = (Contacto) lista.getItemAtPosition(position);
+                String des_hab = "";
+                if(cont.getEstado()){
+                    des_hab = "Deshabilitar";
+                }else{
+                    des_hab = "Habilitar";
+                }
+
+                String[] opc = new String[]{"Eliminar", des_hab};
                 AlertDialog opciones = new AlertDialog.Builder(NotificacionesActivity.this)
 //                        .setTitle("Opciones")
                         .setItems(opc,
@@ -59,13 +67,11 @@ public class NotificacionesActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int selected) {
                                         if (selected == 0) { // Eliminar
-//                                            String num = lista.getItemAtPosition(position).toString();
-//                                            eliminar(num);
                                             Contacto con = (Contacto) lista.getItemAtPosition(position);
                                             eliminar(con);
                                         }else if(selected == 1){ // Des/habilitar
-                                            String num = lista.getItemAtPosition(position).toString();
-                                            deshabilitar(num);
+                                            Contacto con = (Contacto) lista.getItemAtPosition(position);
+                                            deshabilitar(con);
                                         }
                                     }
                                 }).create();
@@ -171,21 +177,34 @@ public class NotificacionesActivity extends AppCompatActivity {
         add_dialogo.show();
     }
 
-    private void deshabilitar(String num){
-        final String numero2 = num;
+    private void deshabilitar(Contacto contacto){
+        final String numero2 = contacto.getNumero();
+        final String nombre2 = contacto.getNombre();
+        final boolean estado2 = contacto.getEstado();
+
         AlertDialog.Builder deshabilitar_dialogo = new AlertDialog.Builder(this);
-        deshabilitar_dialogo.setTitle("Des/habilitar destinatario");
-        deshabilitar_dialogo.setMessage("¿Eliminar el destinatario " + num + "?");
+        if(estado2){
+            deshabilitar_dialogo.setTitle("Deshabilitar destinatario");
+            deshabilitar_dialogo.setMessage("¿Deshabilitar el destinatario " + nombre2 + " (" + numero2 + ")?");
+        }else{
+            deshabilitar_dialogo.setTitle("Habilitar destinatario");
+            deshabilitar_dialogo.setMessage("¿Habilitar el destinatario " + nombre2 + " (" + numero2 + ")?");
+        }
         deshabilitar_dialogo.setCancelable(false);
 
         DialogInterface.OnClickListener click_ok = new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialog, int which) {
-//                if (notif.delDestinatario(numero2)) {
-//                    app_data.delDestinatario(numero2);
-//                    adaptador.notifyDataSetChanged();
-//                    Toast.makeText(NotificacionesActivity.this, numero2 + " deshabilitado!", Toast.LENGTH_SHORT).show();
-//                }
+                if (notif.cambiarEstado(new Contacto(nombre2, numero2, estado2))) {
+                    app_data.delDestinatario(numero2);
+                    adaptador.notifyDataSetChanged();
+                    if(estado2){
+                        Toast.makeText(NotificacionesActivity.this, nombre2 + " (" + numero2 + ") deshabilitado!", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(NotificacionesActivity.this, nombre2 + " (" + numero2 + ") habilitado!", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
             }
         };
 
