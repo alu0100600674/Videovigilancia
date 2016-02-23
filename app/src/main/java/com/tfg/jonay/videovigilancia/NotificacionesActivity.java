@@ -26,6 +26,8 @@ public class NotificacionesActivity extends AppCompatActivity {
     private GlobalClass globales;
     private BaseDeDatos app_data;
 
+    private AdaptadorListaContactos adap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,12 +42,15 @@ public class NotificacionesActivity extends AppCompatActivity {
 
 //        notif = new Notificaciones(getString(R.string.app_name));
         adaptador = new ArrayAdapter<Contacto>(this, android.R.layout.simple_list_item_1, notif.getDestinatarios());
+        adap = new AdaptadorListaContactos(this, android.R.layout.simple_list_item_1, notif.getDestinatarios());
 
         lista = (ListView) findViewById(R.id.lista_destinatarios);
         TextView titulo = new TextView(getApplicationContext());
         titulo.setText("Destinatarios:");
         lista.addHeaderView(titulo);
-        lista.setAdapter(adaptador);
+//        lista.setAdapter(adaptador);
+
+        lista.setAdapter(adap);
 
         lista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override

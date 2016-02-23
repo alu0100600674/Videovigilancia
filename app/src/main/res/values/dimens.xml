@@ -8,4 +8,7 @@
     <dimen name="icon_text">30dp</dimen>
     <dimen name="icon_btn">80dp</dimen>
     <dimen name="btn_p_principal">60dp</dimen>
+
+    <!-- Tamaño de los elementos de las listas -->
+    <dimen name="lista_elemento_contacto">50dp</dimen>
 </resources>
