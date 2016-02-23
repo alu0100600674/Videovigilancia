@@ -41,12 +41,7 @@ public class BaseDeDatos {
             }else{
                 est = true;
             }
-            System.out.println(result.getInt(2));
             lista_destinatarios.add(new Contacto(result.getString(0), result.getString(1), est));
-        }
-
-        for(int i = 0; i < lista_destinatarios.size(); i++){
-            System.out.println(lista_destinatarios.get(i).getNombre() + " " + lista_destinatarios.get(i).getNumero() + " " + lista_destinatarios.get(i).getEstado());
         }
 
         return lista_destinatarios;
