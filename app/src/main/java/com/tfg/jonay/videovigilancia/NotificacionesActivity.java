@@ -22,7 +22,7 @@ public class NotificacionesActivity extends AppCompatActivity {
 
     private Notificaciones notif;
     private ListView lista;
-    private ArrayAdapter<String> adaptador;
+    private ArrayAdapter<Contacto> adaptador;
     private GlobalClass globales;
     private BaseDeDatos app_data;
 
@@ -39,7 +39,7 @@ public class NotificacionesActivity extends AppCompatActivity {
         app_data = globales.getBaseDeDatos();
 
 //        notif = new Notificaciones(getString(R.string.app_name));
-        adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, notif.getDestinatarios());
+        adaptador = new ArrayAdapter<Contacto>(this, android.R.layout.simple_list_item_1, notif.getDestinatarios());
 
         lista = (ListView) findViewById(R.id.lista_destinatarios);
         TextView titulo = new TextView(getApplicationContext());
@@ -51,7 +51,7 @@ public class NotificacionesActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
 
-                String[] opc = new String[]{"Eliminar"};
+                String[] opc = new String[]{"Eliminar", "Des/habilitar"};
                 AlertDialog opciones = new AlertDialog.Builder(NotificacionesActivity.this)
 //                        .setTitle("Opciones")
                         .setItems(opc,
@@ -59,8 +59,15 @@ public class NotificacionesActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int selected) {
                                         if (selected == 0) { // Eliminar
+//                                            String num = lista.getItemAtPosition(position).toString();
+//                                            eliminar(num);
+                                            Contacto con = (Contacto) lista.getItemAtPosition(position);
+                                            eliminar(con.getNumero());
+                                            System.out.println(con.getNombre());
+                                            System.out.println(con.getEstado());
+                                        }else if(selected == 1){ // Des/habilitar
                                             String num = lista.getItemAtPosition(position).toString();
-                                            eliminar(num);
+                                            deshabilitar(num);
                                         }
                                     }
                                 }).create();
@@ -75,7 +82,6 @@ public class NotificacionesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent_contactos = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-                ;
                 startActivityForResult(intent_contactos, 1);
             }
         });
@@ -118,7 +124,7 @@ public class NotificacionesActivity extends AppCompatActivity {
                         DialogInterface.OnClickListener click_ok = new DialogInterface.OnClickListener(){
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                if(notif.addDestinatario(numero2)){
+                                if(notif.addDestinatario(new Contacto(nombre2, numero2))){
                                     app_data.addDestinatario(nombre2, numero2);
                                     Toast.makeText(NotificacionesActivity.this, numero2 + " añadido!", Toast.LENGTH_SHORT).show();
                                     adaptador.notifyDataSetChanged();
@@ -149,7 +155,7 @@ public class NotificacionesActivity extends AppCompatActivity {
         DialogInterface.OnClickListener click_ok = new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (notif.delDestinatario(numero2)) {
+                if (notif.delDestinatario(new Contacto(numero2))) {
                     app_data.delDestinatario(numero2);
                     adaptador.notifyDataSetChanged();
                     Toast.makeText(NotificacionesActivity.this, numero2 + " eliminado!", Toast.LENGTH_SHORT).show();
@@ -164,6 +170,33 @@ public class NotificacionesActivity extends AppCompatActivity {
             }
         });
         add_dialogo.show();
+    }
+
+    private void deshabilitar(String num){
+        final String numero2 = num;
+        AlertDialog.Builder deshabilitar_dialogo = new AlertDialog.Builder(this);
+        deshabilitar_dialogo.setTitle("Des/habilitar destinatario");
+        deshabilitar_dialogo.setMessage("¿Eliminar el destinatario " + num + "?");
+        deshabilitar_dialogo.setCancelable(false);
+
+        DialogInterface.OnClickListener click_ok = new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+//                if (notif.delDestinatario(numero2)) {
+//                    app_data.delDestinatario(numero2);
+//                    adaptador.notifyDataSetChanged();
+//                    Toast.makeText(NotificacionesActivity.this, numero2 + " deshabilitado!", Toast.LENGTH_SHORT).show();
+//                }
+            }
+        };
+
+        deshabilitar_dialogo.setPositiveButton("Confirmar", click_ok);
+        deshabilitar_dialogo.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface add_dialogo, int id) {
+                Toast.makeText(NotificacionesActivity.this, "Operación cancelada!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        deshabilitar_dialogo.show();
     }
 
 }

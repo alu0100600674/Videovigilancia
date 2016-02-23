@@ -16,15 +16,19 @@ public class BaseDeDatos {
     }
 
     public void crearTablas(){
-        db.execSQL("CREATE TABLE IF NOT EXISTS destinatarios(nombre VARCHAR, numero VARCHAR);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS destinatarios(nombre VARCHAR, numero VARCHAR, activo BOOLEAN);");
     }
 
     public void addDestinatario(String nombre, String numero){
-        db.execSQL("INSERT INTO destinatarios VALUES('" + nombre + "', '" + numero +"');");
+        db.execSQL("INSERT INTO destinatarios VALUES('" + nombre + "', '" + numero +"', 'true');");
     }
 
     public void delDestinatario(String numero){
         db.execSQL("DELETE FROM destinatarios WHERE numero = " + numero + ";");
+    }
+
+    public void updateDestinatarioEstado(String numero, boolean estado){
+        db.execSQL("UPDATE destinatarios SET activo = " + estado + "WHERE numero = " + numero + ";");
     }
 
     public ArrayList<String> selectDestinatarios(){
