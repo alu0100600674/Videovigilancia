@@ -40,8 +40,13 @@ public class AdaptadorListaContactos extends ArrayAdapter<Contacto> {
         TextView nombre = (TextView) item.findViewById(R.id.contacto_nombre);
         nombre.setText(datos.get(position).getNombre());
         TextView numero = (TextView) item.findViewById(R.id.contacto_numero);
-        numero.setText(datos.get(position).getNumero());
+        numero.setText("(" + datos.get(position).getNumero() + ")");
         ImageView img = (ImageView) item.findViewById(R.id.contacto_img);
+        if(datos.get(position).getEstado()){
+            img.setImageResource(R.drawable.si);
+        }else{
+            img.setImageResource(R.drawable.no);
+        }
 
         return item;
     }

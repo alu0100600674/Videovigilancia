@@ -11,4 +11,6 @@
 
     <!-- Tamaño de los elementos de las listas -->
     <dimen name="lista_elemento_contacto">50dp</dimen>
+    <dimen name="lista_elemento_letra">20dp</dimen>
+    <dimen name="lista_elemento_img">30dp</dimen>
 </resources>

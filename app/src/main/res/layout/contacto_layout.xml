@@ -4,22 +4,35 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/lista_elemento_contacto"
+        android:layout_height="wrap_content"
         android:id="@+id/contacto_nombre"
-        android:text="holaaa"/>
+        android:textSize="@dimen/lista_elemento_letra"
+        android:layout_marginTop="12.5dp"
+        android:layout_marginBottom="12.5dp"
+        android:layout_centerVertical="true"/>
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/lista_elemento_contacto"
+        android:layout_height="wrap_content"
         android:id="@+id/contacto_numero"
-        android:text="numero"
+        android:textSize="@dimen/lista_elemento_letra"
+        android:layout_marginTop="12.5dp"
+        android:layout_marginBottom="12.5dp"
+        android:layout_centerVertical="true"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/contacto_nombre"
-        android:layout_toEndOf="@+id/contacto_nombre" />
+        android:layout_toEndOf="@+id/contacto_nombre"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/contacto_img"/>
+        android:layout_width="@dimen/lista_elemento_img"
+        android:layout_height="@dimen/lista_elemento_img"
+        android:id="@+id/contacto_img"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_centerVertical="true"
+        />
 
 </RelativeLayout>
