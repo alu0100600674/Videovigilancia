@@ -92,7 +92,9 @@ public class NotificacionesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditText text_num = (EditText) findViewById(R.id.text_intr_telefono);
-                addNumero(text_num.getText().toString());
+                if(!text_num.getText().toString().matches("")){
+                    addNumero(text_num.getText().toString());
+                }
             }
         });
 
