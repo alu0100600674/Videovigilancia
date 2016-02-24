@@ -42,9 +42,6 @@ public class CameraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_camera);
 
         globales = (GlobalClass) getApplicationContext();
-        if(globales.getNotificaciones() == null){
-            globales.ini();
-        }
         notif = globales.getNotificaciones();
 
         Typeface font = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf");

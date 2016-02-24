@@ -32,9 +32,6 @@ public class NotificacionesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notificaciones);
 
         globales = (GlobalClass) getApplicationContext();
-        if(globales.getNotificaciones() == null){
-            globales.ini();
-        }
         notif = globales.getNotificaciones();
         app_data = globales.getBaseDeDatos();
 
