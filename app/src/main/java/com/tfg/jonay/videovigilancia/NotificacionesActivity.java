@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -56,7 +57,7 @@ public class NotificacionesActivity extends AppCompatActivity {
                     des_hab = "Habilitar";
                 }
 
-                String[] opc = new String[]{"Eliminar", des_hab};
+                String[] opc = new String[]{"Eliminar", des_hab, "Cambiar nombre"};
                 AlertDialog opciones = new AlertDialog.Builder(NotificacionesActivity.this)
 //                        .setTitle("Opciones")
                         .setItems(opc,
@@ -69,6 +70,9 @@ public class NotificacionesActivity extends AppCompatActivity {
                                         } else if (selected == 1) { // Des/habilitar
                                             Contacto con = (Contacto) lista.getItemAtPosition(position);
                                             deshabilitar(con);
+                                        } else if (selected == 2){ // Cambiar nombre
+                                            Contacto con = (Contacto) lista.getItemAtPosition(position);
+                                            cambiarNombre(con);
                                         }
                                     }
                                 }).create();
@@ -247,11 +251,46 @@ public class NotificacionesActivity extends AppCompatActivity {
 
         deshabilitar_dialogo.setPositiveButton("Confirmar", click_ok);
         deshabilitar_dialogo.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface add_dialogo, int id) {
+            public void onClick(DialogInterface deshabilitar_dialogo, int id) {
                 Toast.makeText(NotificacionesActivity.this, "Operación cancelada!", Toast.LENGTH_SHORT).show();
             }
         });
         deshabilitar_dialogo.show();
+    }
+
+    private void cambiarNombre(final Contacto contacto){
+        String nombre2 = contacto.getNombre();
+        final String numero2 = contacto.getNumero();
+
+        AlertDialog.Builder cambiar_nombre_dialogo = new AlertDialog.Builder(this);
+        cambiar_nombre_dialogo.setTitle("Cambiar nombre");
+        cambiar_nombre_dialogo.setMessage("Cambiar el nombre para " + nombre2 + " (" + numero2 + ").");
+        cambiar_nombre_dialogo.setCancelable(false);
+
+        final EditText nuevo_nombre = new EditText(this);
+        nuevo_nombre.setInputType(InputType.TYPE_CLASS_TEXT);
+        nuevo_nombre.setText(nombre2);
+        cambiar_nombre_dialogo.setView(nuevo_nombre);
+
+        cambiar_nombre_dialogo.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface cambiar_nombre_dialogo, int id) {
+                Toast.makeText(NotificacionesActivity.this, "Operación cancelada!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        cambiar_nombre_dialogo.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface cambiar_nombre_dialogo, int id) {
+                String nombre_nuevo = nuevo_nombre.getText().toString();
+                if(notif.cambiarNombre(contacto, nuevo_nombre.getText().toString())){
+                    app_data.updateDestinatarioNombre(numero2, nombre_nuevo);
+                    adaptador.notifyDataSetChanged();
+                    Toast.makeText(NotificacionesActivity.this, "Destinatario renombrado", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+        cambiar_nombre_dialogo.show();
     }
 
 }

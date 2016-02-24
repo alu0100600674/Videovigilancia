@@ -31,6 +31,10 @@ public class BaseDeDatos {
         db.execSQL("DELETE FROM destinatarios WHERE numero = " + numero + ";");
     }
 
+    public void updateDestinatarioNombre(String numero, String nombre_nuevo){
+        db.execSQL("UPDATE destinatarios SET nombre = '" + nombre_nuevo + "' WHERE numero = " + numero + ";");
+    }
+
     public void updateDestinatarioEstado(String numero, int estado){
         db.execSQL("UPDATE destinatarios SET activo = " + Integer.toString(estado) + " WHERE numero = " + numero + ";");
     }

@@ -39,6 +39,10 @@ public class Contacto {
         return activo;
     }
 
+    public void setNombre(String nom){
+        nombre = nom;
+    }
+
     public void setEstado(boolean estado){
         activo = estado;
     }

@@ -28,7 +28,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/btn_add_destinatario"
         android:layout_toStartOf="@+id/btn_add_numero"
-        android:textSize="25dp"
+        android:textSize="20dp"
         android:layout_toLeftOf="@+id/btn_add_numero"
         android:hint="Introduce número"/>
 

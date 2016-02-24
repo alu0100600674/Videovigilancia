@@ -60,6 +60,16 @@ public class Notificaciones {
         return false;
     }
 
+    public boolean cambiarNombre(Contacto contacto, String nombre_nuevo){
+        for(int i = 0; i < destinatarios.size(); i++){
+            if(destinatarios.get(i).getNumero() == contacto.getNumero()){
+                destinatarios.get(i).setNombre(nombre_nuevo);
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void enviarSmsMovimiento(){
         Time now = new Time(Time.getCurrentTimezone());
         now.setToNow();
