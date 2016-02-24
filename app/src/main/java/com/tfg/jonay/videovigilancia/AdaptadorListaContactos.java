@@ -43,9 +43,9 @@ public class AdaptadorListaContactos extends ArrayAdapter<Contacto> {
         numero.setText("(" + datos.get(position).getNumero() + ")");
         ImageView img = (ImageView) item.findViewById(R.id.contacto_img);
         if(datos.get(position).getEstado()){
-            img.setImageResource(R.drawable.si);
+            img.setImageResource(R.drawable.si3);
         }else{
-            img.setImageResource(R.drawable.no);
+            img.setImageResource(R.drawable.no2);
         }
 
         return item;
