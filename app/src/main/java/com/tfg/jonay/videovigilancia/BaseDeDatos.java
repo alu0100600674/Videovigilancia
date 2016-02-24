@@ -23,6 +23,10 @@ public class BaseDeDatos {
         db.execSQL("INSERT INTO destinatarios VALUES('" + nombre + "', '" + numero +"', 1);");
     }
 
+    public void addDestinatario(String numero){
+        db.execSQL("INSERT INTO destinatarios VALUES('" + "Sin nombre" + "', '" + numero +"', 1);");
+    }
+
     public void delDestinatario(String numero){
         db.execSQL("DELETE FROM destinatarios WHERE numero = " + numero + ";");
     }

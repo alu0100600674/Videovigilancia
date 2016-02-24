@@ -7,7 +7,9 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.tfg.jonay.videovigilancia.NotificacionesActivity">
+    tools:context="com.tfg.jonay.videovigilancia.NotificacionesActivity"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <Button
         android:layout_width="match_parent"
@@ -15,11 +17,36 @@
         android:id="@+id/btn_add_destinatario"
         android:text="@string/add_destino"/>
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/btn_p_principal"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/text_intr_telefono"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/btn_add_destinatario"
+        android:layout_toLeftOf="@+id/button"
+        android:layout_toStartOf="@+id/button"
+        android:textSize="25dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/btn_p_principal"
+        android:text="Añadir numero"
+        android:id="@+id/btn_add_numero"
+        android:layout_below="@+id/btn_add_destinatario"
+        android:layout_alignRight="@+id/btn_add_destinatario"
+        android:layout_alignEnd="@+id/btn_add_destinatario" />
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/lista_destinatarios"
-        android:layout_below="@+id/btn_add_destinatario">
+        android:layout_below="@+id/text_intr_telefono">
     </ListView>
+
+
 
 </RelativeLayout>

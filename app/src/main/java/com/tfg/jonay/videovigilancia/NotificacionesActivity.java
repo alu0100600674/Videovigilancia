@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,9 +50,9 @@ public class NotificacionesActivity extends AppCompatActivity {
 
                 Contacto cont = (Contacto) lista.getItemAtPosition(position);
                 String des_hab = "";
-                if(cont.getEstado()){
+                if (cont.getEstado()) {
                     des_hab = "Deshabilitar";
-                }else{
+                } else {
                     des_hab = "Habilitar";
                 }
 
@@ -65,7 +66,7 @@ public class NotificacionesActivity extends AppCompatActivity {
                                         if (selected == 0) { // Eliminar
                                             Contacto con = (Contacto) lista.getItemAtPosition(position);
                                             eliminar(con);
-                                        }else if(selected == 1){ // Des/habilitar
+                                        } else if (selected == 1) { // Des/habilitar
                                             Contacto con = (Contacto) lista.getItemAtPosition(position);
                                             deshabilitar(con);
                                         }
@@ -83,6 +84,15 @@ public class NotificacionesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent_contactos = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
                 startActivityForResult(intent_contactos, 1);
+            }
+        });
+
+        Button btn_add_numero = (Button) findViewById(R.id.btn_add_numero);
+        btn_add_numero.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText text_num = (EditText) findViewById(R.id.text_intr_telefono);
+                addNumero(text_num.getText().toString());
             }
         });
 
@@ -143,6 +153,34 @@ public class NotificacionesActivity extends AppCompatActivity {
                 }
                 break;
         }
+    }
+
+    private void addNumero(String numero){
+        final String numero2 = numero;
+
+        AlertDialog.Builder add_dialogo = new AlertDialog.Builder(this);
+        add_dialogo.setTitle("Añadir destinatario");
+        add_dialogo.setMessage("¿Añadir el destinatario " + numero + "?");
+        add_dialogo.setCancelable(false);
+
+        DialogInterface.OnClickListener click_ok = new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(notif.addDestinatario(new Contacto(numero2))){
+                    app_data.addDestinatario(numero2);
+                    Toast.makeText(NotificacionesActivity.this, numero2 + " añadido!", Toast.LENGTH_SHORT).show();
+                    adaptador.notifyDataSetChanged();
+                }
+            }
+        };
+
+        add_dialogo.setPositiveButton("Confirmar", click_ok);
+        add_dialogo.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface add_dialogo, int id) {
+                Toast.makeText(NotificacionesActivity.this, "Operación cancelada!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        add_dialogo.show();
     }
 
     private void eliminar(Contacto contacto){
