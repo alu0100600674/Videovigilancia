@@ -7,7 +7,9 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.tfg.jonay.videovigilancia.ServidorActivity">
+    tools:context="com.tfg.jonay.videovigilancia.ServidorActivity"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
     
     <TextView
         android:layout_width="match_parent"
@@ -49,6 +51,14 @@
         android:id="@+id/serv_input_pass"
         android:password="true"
         android:layout_below="@id/serv_text_pass"
+        />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/serv_ver_pass"
+        android:text="@string/ver_contrasena"
+        android:layout_below="@+id/serv_input_pass"
         android:layout_marginBottom="15dp"/>
 
     <Button
@@ -56,6 +66,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/btn_serv_guardar"
         android:text="@string/guardar"
-        android:layout_below="@id/serv_input_pass"/>
+        android:layout_below="@id/serv_ver_pass"/>
 
 </RelativeLayout>

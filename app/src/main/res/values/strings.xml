@@ -18,4 +18,5 @@
     <string name="usuario">Usuario:</string>
     <string name="contrasena">Contraseña:</string>
     <string name="guardar">Guardar</string>
+    <string name="ver_contrasena">Ver contraseña</string>
 </resources>
