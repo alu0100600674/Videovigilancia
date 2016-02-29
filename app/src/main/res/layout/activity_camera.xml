@@ -9,7 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.tfg.jonay.videovigilancia.CameraActivity">
 
-    <SurfaceView
+    <net.majorkernelpanic.streaming.gl.SurfaceView
 
         android:id="@+id/view_cam"
         android:layout_alignParentTop="true"

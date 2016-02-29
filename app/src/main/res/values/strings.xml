@@ -13,4 +13,9 @@
     <string name="add_destino">Añadir destinatario</string>
     <string name="del_destino">Eliminar destinatario</string>
     <string name="simular_mov">&#xf0c0;</string>
+
+    <string name="serv_url">URL servidor streaming:</string>
+    <string name="usuario">Usuario:</string>
+    <string name="contrasena">Contraseña:</string>
+    <string name="guardar">Guardar</string>
 </resources>

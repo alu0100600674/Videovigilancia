@@ -8,5 +8,54 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.tfg.jonay.videovigilancia.ServidorActivity">
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:id="@+id/serv_text_url"
+        android:text="@string/serv_url"/>
+    
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/serv_input_url"
+        android:layout_below="@+id/serv_text_url"
+        android:layout_marginBottom="15dp"/>
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/serv_text_user"
+        android:text="@string/usuario"
+        android:layout_below="@+id/serv_input_url"/>
+    
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:id="@+id/serv_input_user"
+        android:layout_below="@+id/serv_text_user"
+        android:layout_marginBottom="15dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/serv_text_pass"
+        android:text="@string/contrasena"
+        android:layout_below="@id/serv_input_user"/>
+    
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:id="@+id/serv_input_pass"
+        android:password="true"
+        android:layout_below="@id/serv_text_pass"
+        android:layout_marginBottom="15dp"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_serv_guardar"
+        android:text="@string/guardar"
+        android:layout_below="@id/serv_input_pass"/>
 
 </RelativeLayout>

@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 public class GlobalClass extends Application{
     private Notificaciones notificaciones;
     private BaseDeDatos app_data;
+    private Servidor servidor;
 
     public GlobalClass(){
 
@@ -24,12 +25,20 @@ public class GlobalClass extends Application{
         app_data.crearTablas();
     }
 
+    public void ini_serv(){
+        servidor = new Servidor();
+    }
+
     public Notificaciones getNotificaciones(){
         return notificaciones;
     }
 
     public BaseDeDatos getBaseDeDatos(){
         return app_data;
+    }
+
+    public Servidor getServidor(){
+        return servidor;
     }
 
 }

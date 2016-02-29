@@ -26,7 +26,7 @@ public class CameraActivity extends AppCompatActivity {
     private Button btn_video;
     private Button btn_flash;
     private Button btn_movimiento;
-    private SurfaceView surfaceView;
+    private net.majorkernelpanic.streaming.gl.SurfaceView surfaceView;
     private SurfaceHolder surfaceHolder;
     private Camera camara;
     private Camera.Parameters p;
@@ -35,6 +35,7 @@ public class CameraActivity extends AppCompatActivity {
 
     private GlobalClass globales;
     private Notificaciones notif;
+    private Servidor serv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class CameraActivity extends AppCompatActivity {
 
         globales = (GlobalClass) getApplicationContext();
         notif = globales.getNotificaciones();
+        serv = globales.getServidor();
 
         Typeface font = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf");
 
@@ -53,11 +55,13 @@ public class CameraActivity extends AppCompatActivity {
         btn_flash.setTypeface(font);
         btn_video.setTypeface(font);
         btn_movimiento.setTypeface(font);
-        surfaceView = (SurfaceView) findViewById(R.id.view_cam);
+        surfaceView = (net.majorkernelpanic.streaming.gl.SurfaceView) findViewById(R.id.view_cam);
         surfaceHolder = surfaceView.getHolder();
 //        surfaceHolder.setSizeFromLayout();
         encendida = false;
         flash = false;
+
+        serv.iniciar(surfaceView);
 
         camara = Camera.open();
         p = camara.getParameters();
