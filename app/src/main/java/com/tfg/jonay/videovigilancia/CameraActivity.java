@@ -61,7 +61,7 @@ public class CameraActivity extends AppCompatActivity {
         encendida = false;
         flash = false;
 
-        serv.iniciar(surfaceView);
+        serv.iniciar(surfaceView, getApplicationContext());
 
         camara = Camera.open();
         p = camara.getParameters();
@@ -133,10 +133,17 @@ public class CameraActivity extends AppCompatActivity {
             camara.setParameters(p);
             camara.setPreviewDisplay(surfaceHolder);
             camara.startPreview();
+
+            camara.release();
+            serv.iniciarStreaming();
+
 //            btn_video.setText(R.string.parar_video);
             btn_video.setBackgroundColor(0xAA009900);
         }else{
-            camara.stopPreview();
+//            camara.stopPreview(); // Comentado para streaming
+
+            serv.iniciarStreaming();
+
 //            camara.release();
             p.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
             camara.setParameters(p);

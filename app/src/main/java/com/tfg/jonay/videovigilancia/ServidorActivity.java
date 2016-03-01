@@ -30,9 +30,9 @@ public class ServidorActivity extends AppCompatActivity {
         app_data = globales.getBaseDeDatos();
         servidor = globales.getServidor();
 
-        servidor.setURL(app_data.getServData()[0]);
-        servidor.setUsername(app_data.getServData()[1]);
-        servidor.setPassword(app_data.getServData()[2]);
+//        servidor.setURL(app_data.getServData()[0]);
+//        servidor.setUsername(app_data.getServData()[1]);
+//        servidor.setPassword(app_data.getServData()[2]);
 
         input_url = (EditText) findViewById(R.id.serv_input_url);
         input_user = (EditText) findViewById(R.id.serv_input_user);
