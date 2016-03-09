@@ -1,25 +1,13 @@
 package com.tfg.jonay.videovigilancia;
 
-import android.content.Context;
 import android.graphics.Typeface;
-import android.hardware.Camera;
-import android.hardware.camera2.CameraAccessException;
-import android.hardware.camera2.CameraDevice;
-import android.hardware.camera2.CameraManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Surface;
+import android.support.v7.app.AppCompatActivity;
 import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.security.Policy;
 
 public class CameraActivity extends AppCompatActivity {
 
@@ -28,8 +16,8 @@ public class CameraActivity extends AppCompatActivity {
     private Button btn_movimiento;
     private net.majorkernelpanic.streaming.gl.SurfaceView surfaceView;
     private SurfaceHolder surfaceHolder;
-    private Camera camara;
-    private Camera.Parameters p;
+//    private Camera camara;
+//    private Camera.Parameters p;
     private boolean encendida;
     private boolean flash;
 
@@ -48,7 +36,6 @@ public class CameraActivity extends AppCompatActivity {
 
         Typeface font = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf");
 
-
         btn_video = (Button) findViewById(R.id.ver_video);
         btn_flash = (Button) findViewById(R.id.btn_flash);
         btn_movimiento = (Button) findViewById(R.id.btn_simular_mov);
@@ -57,21 +44,25 @@ public class CameraActivity extends AppCompatActivity {
         btn_movimiento.setTypeface(font);
         surfaceView = (net.majorkernelpanic.streaming.gl.SurfaceView) findViewById(R.id.view_cam);
         surfaceHolder = surfaceView.getHolder();
-//        surfaceHolder.setSizeFromLayout();
         encendida = false;
         flash = false;
 
         serv.iniciar(surfaceView, getApplicationContext());
 
-        camara = Camera.open();
-        p = camara.getParameters();
-        camara.startPreview();
 
-        int width_cam = camara.getParameters().getPreviewSize().width;
-        int height_cam = camara.getParameters().getPreviewSize().height;
-        final float scale = getResources().getDisplayMetrics().density; // Para las dimensiones en dp.
-        surfaceView.getLayoutParams().width = (int) (height_cam / 5 * scale);
-        surfaceView.getLayoutParams().height = (int) (width_cam / 5 * scale);
+        /* Antes, tamaño del surfaceView según la cámara */
+//        camara = Camera.open();
+//        p = camara.getParameters();
+//        camara.startPreview();
+//        int width_cam = camara.getParameters().getPreviewSize().width;
+//        int height_cam = camara.getParameters().getPreviewSize().height;
+//        final float scale = getResources().getDisplayMetrics().density; // Para las dimensiones en dp.
+//        surfaceView.getLayoutParams().width = (int) (height_cam / 5 * scale);
+//        surfaceView.getLayoutParams().height = (int) (width_cam / 5 * scale);
+
+        /* Ahora, tamaño del surfaceView fijo */
+        surfaceView.getLayoutParams().width = (int) 648;
+        surfaceView.getLayoutParams().height = (int) 1152;
 
 
         btn_video.setOnClickListener(new View.OnClickListener() {
@@ -100,79 +91,32 @@ public class CameraActivity extends AppCompatActivity {
                 notif.enviarSmsMovimiento();
             }
         });
-
-//        surfaceView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                camara.
-//            }
-//        });
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        // Parar la cámara al cerrar el Activity.
-        try {
-            camara.stopPreview();
-            camara.release();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        serv.parar();
     }
 
     private void startCamara() throws IOException{
+        serv.iniciarStreaming();
         if(!encendida){
-//            camara = Camera.open();
-
-
-            camara.setDisplayOrientation(90);
-            p.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
-            camara.setParameters(p);
-            camara.setPreviewDisplay(surfaceHolder);
-            camara.startPreview();
-
-            camara.release();
-            serv.iniciarStreaming();
-
-//            btn_video.setText(R.string.parar_video);
             btn_video.setBackgroundColor(0xAA009900);
         }else{
-//            camara.stopPreview(); // Comentado para streaming
-
-            serv.iniciarStreaming();
-
-//            camara.release();
-            p.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-            camara.setParameters(p);
-//            btn_video.setText(R.string.ver_video);
-//            btn_flash.setText(R.string.flash_off);
-            btn_flash.setBackgroundColor(0xAAFF0000);
             btn_video.setBackgroundColor(0xAAFF0000);
-            flash = false;
         }
         encendida = !encendida;
     }
 
     private void startFlash(){
-//        Camera.Parameters p = camara.getParameters();
+        serv.iniciarFlash();
         if(!flash){
-            p.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-//            btn_flash.setText(R.string.flash_on);
             btn_flash.setBackgroundColor(0xAA009900);
         }else{
-            p.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-//            btn_flash.setText(R.string.flash_off);
             btn_flash.setBackgroundColor(0xAAFF0000);
         }
-        camara.setParameters(p);
         flash = !flash;
     }
-
-//    private boolean cameraIsOpen(){
-//
-//    }
 
 }

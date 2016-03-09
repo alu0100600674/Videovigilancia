@@ -2,7 +2,6 @@ package com.tfg.jonay.videovigilancia;
 
 import android.app.Activity;
 import android.content.Context;
-import android.media.tv.TvInputService;
 import android.view.SurfaceHolder;
 
 import net.majorkernelpanic.streaming.Session;
@@ -52,10 +51,11 @@ public class Servidor extends Activity implements RtspClient.Callback,
                 .setSurfaceView(surfaceView)
                 .setPreviewOrientation(90)
                 .setContext(context)
-                .setAudioEncoder(SessionBuilder.AUDIO_NONE)
-                .setAudioQuality(new AudioQuality(16000, 32000))
+                .setAudioEncoder(SessionBuilder.AUDIO_AAC)
+                .setAudioQuality(new AudioQuality(8000, 16000))
                 .setVideoEncoder(SessionBuilder.VIDEO_H264)
-                .setVideoQuality(new VideoQuality(320,240,20,500000))
+//                .setVideoQuality(new VideoQuality(320,240,20,500000))
+                .setVideoQuality(new VideoQuality(1280, 720, 120, 500000))
                 .build();
 
         surfaceView.getHolder().addCallback(this);
@@ -92,6 +92,16 @@ public class Servidor extends Activity implements RtspClient.Callback,
             session.stopPreview();
             client.stopStream();
         }
+    }
+
+    public void iniciarFlash(){
+        session.toggleFlash();
+    }
+
+    public void parar(){
+        session.release();
+        client.release();
+        surfaceView.getHolder().removeCallback(this);
     }
 
     public Session getSession(){

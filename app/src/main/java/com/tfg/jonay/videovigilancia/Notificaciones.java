@@ -1,7 +1,5 @@
 package com.tfg.jonay.videovigilancia;
 
-import android.content.res.Resources;
-import android.database.sqlite.SQLiteDatabase;
 import android.telephony.SmsManager;
 import android.text.format.Time;
 
