@@ -18,6 +18,8 @@ public class RobotSocket {
     private DataInputStream DIS;
     private Thread threadSocket;
 
+    private Robot robot;
+
     public RobotSocket(){
         puerto = 1234;
         crearSocket();
@@ -48,7 +50,25 @@ public class RobotSocket {
                 try {
                     BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                     while(true){
-                        System.out.println(in.readLine());
+                        switch(in.readLine()){
+                            case "legoev3arriba":
+                                robot.moverAdelante();
+//                                System.out.println("arriba");
+                                break;
+                            case "legoev3abajo":
+                                robot.moverAtras();
+//                                System.out.println("abajo");
+                                break;
+                            case "legoev3izquierda":
+                                robot.moverIzquierda();
+//                                System.out.println("izquierda");
+                                break;
+                            case "legoev3derecha":
+                                robot.moverDerecha();
+//                                System.out.println("derecha");
+                                break;
+                        }
+//                        System.out.println(in.readLine());
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -93,6 +113,10 @@ public class RobotSocket {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setRobot(Robot r){
+        robot = r;
     }
 
 }

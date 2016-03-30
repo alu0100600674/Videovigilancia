@@ -46,7 +46,10 @@ public class MainActivity extends AppCompatActivity {
 //            e.printStackTrace();
 //        }
 
+        globales.ini_robot();
+
         globales.ini_robotSocket();
+        globales.getRobotSocket().setRobot(globales.getRobot());
         globales.getRobotSocket().abrirSocket();
     }
 

@@ -33,19 +33,19 @@ public class Robot {
     }
 
     public void moverAdelante(){
-
+        System.out.println("Robot hacia adelante");
     }
 
     public void moverAtras(){
-
+        System.out.println("Robot hacia atrás");
     }
 
     public void moverIzquierda(){
-
+        System.out.println("Robot hacia la izquierda");
     }
 
     public void moverDerecha(){
-        
+        System.out.println("Robot hacia la derecha");
     }
 
 }
