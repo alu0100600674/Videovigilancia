@@ -5,6 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.charlie.ev3.BluetoothCommunication;
+import com.charlie.ev3.Brick;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +32,28 @@ public class MainActivity extends AppCompatActivity {
 
         globales.ini_serv();
         globales.getServidor().cargarDesdeBDD(globales.getBaseDeDatos().getServData());
+
+
+
+//        globales.ini_robot();
+
+//        Brick ev3 = new Brick(new BluetoothCommunication());
+//        try {
+//            ev3.connect();
+//            ev3.directCommand.playTone(100,(short)500,(short)1000);
+//        } catch (Exception e) {
+//            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+//            e.printStackTrace();
+//        }
+
+        globales.ini_robotSocket();
+        globales.getRobotSocket().abrirSocket();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        globales.getRobotSocket().cerrarSocket();
     }
 
     @Override
