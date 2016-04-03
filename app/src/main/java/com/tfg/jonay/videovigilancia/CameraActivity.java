@@ -34,6 +34,8 @@ public class CameraActivity extends AppCompatActivity {
         notif = globales.getNotificaciones();
         serv = globales.getServidor();
 
+        globales.ini_camAct(this);
+
         Typeface font = Typeface.createFromAsset(getAssets(), "fontawesome-webfont.ttf");
 
         btn_video = (Button) findViewById(R.id.ver_video);
@@ -99,7 +101,7 @@ public class CameraActivity extends AppCompatActivity {
         serv.parar();
     }
 
-    private void startCamara() throws IOException{
+    public void startCamara() throws IOException{
         serv.iniciarStreaming();
         if(!encendida){
             btn_video.setBackgroundColor(0xAA009900);
@@ -109,8 +111,17 @@ public class CameraActivity extends AppCompatActivity {
         encendida = !encendida;
     }
 
-    private void startFlash(){
+    public void startFlash(){
         serv.iniciarFlash();
+        if(!flash){
+            btn_flash.setBackgroundColor(0xAA009900);
+        }else{
+            btn_flash.setBackgroundColor(0xAAFF0000);
+        }
+        flash = !flash;
+    }
+
+    public void colorBtnFlash(){
         if(!flash){
             btn_flash.setBackgroundColor(0xAA009900);
         }else{

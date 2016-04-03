@@ -13,6 +13,8 @@ public class GlobalClass extends Application{
     private Robot robot;
     private RobotSocket robotSocket;
 
+    private CameraActivity cam_act;
+
     public GlobalClass(){
 
     }
@@ -36,7 +38,11 @@ public class GlobalClass extends Application{
     }
 
     public void ini_robotSocket(){
-        robotSocket = new RobotSocket();
+        robotSocket = new RobotSocket(getApplicationContext());
+    }
+
+    public void ini_camAct(CameraActivity ca){
+        cam_act = ca;
     }
 
     public Notificaciones getNotificaciones(){
@@ -57,6 +63,10 @@ public class GlobalClass extends Application{
 
     public RobotSocket getRobotSocket(){
         return robotSocket;
+    }
+
+    public CameraActivity getCamAct(){
+        return cam_act;
     }
 
 }

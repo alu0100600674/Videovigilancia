@@ -1,5 +1,7 @@
 package com.tfg.jonay.videovigilancia;
 
+import android.content.Context;
+
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -19,8 +21,11 @@ public class RobotSocket {
     private Thread threadSocket;
 
     private Robot robot;
+    private Servidor serv;
+    private GlobalClass globales;
 
-    public RobotSocket(){
+    public RobotSocket(Context ctx){
+        globales = (GlobalClass) ctx.getApplicationContext();
         puerto = 1234;
         crearSocket();
     }
@@ -66,6 +71,10 @@ public class RobotSocket {
                             case "legoev3derecha":
                                 robot.moverDerecha();
 //                                System.out.println("derecha");
+                                break;
+                            case "videovigilanciaflash":
+//                                globales.getCamAct().startFlash();
+                                serv.iniciarFlash();
                                 break;
                         }
 //                        System.out.println(in.readLine());
@@ -117,6 +126,10 @@ public class RobotSocket {
 
     public void setRobot(Robot r){
         robot = r;
+    }
+
+    public void setServidor(Servidor s){
+        serv = s;
     }
 
 }
