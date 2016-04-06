@@ -93,6 +93,8 @@ public class CameraActivity extends AppCompatActivity {
                 notif.enviarSmsMovimiento();
             }
         });
+
+        globales.getRobot().conectar();
     }
 
     @Override

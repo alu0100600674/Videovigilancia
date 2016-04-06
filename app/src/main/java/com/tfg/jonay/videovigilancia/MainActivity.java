@@ -5,14 +5,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.charlie.ev3.BluetoothCommunication;
 import com.charlie.ev3.Brick;
+import com.charlie.ev3.OutputPort;
+
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
     private GlobalClass globales;
+    Brick ev3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        globales.ini_robot();
 
-//        Brick ev3 = new Brick(new BluetoothCommunication());
+//        ev3 = new Brick(new BluetoothCommunication());
 //        try {
 //            ev3.connect();
 //            ev3.directCommand.playTone(100,(short)500,(short)1000);
@@ -52,6 +58,22 @@ public class MainActivity extends AppCompatActivity {
         globales.getRobotSocket().setRobot(globales.getRobot());
         globales.getRobotSocket().abrirSocket();
         globales.getRobotSocket().setServidor(globales.getServidor());
+
+//        Button robot_pruebas = (Button) findViewById(R.id.robot_pruebas);
+//        robot_pruebas.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                try {
+////                    ev3.directCommand.playTone(100, (short)2000, (short)1000);
+////                    ev3.directCommand.startMotor(OutputPort.B);
+//                    ev3.directCommand.timeMotorSpeed(20, 1000, true, OutputPort.B);
+//                    ev3.directCommand.timeMotorSpeed(-20, 1000, true, OutputPort.C);
+//                    System.out.println("boton");
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
     }
 
     @Override

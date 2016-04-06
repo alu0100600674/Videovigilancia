@@ -57,7 +57,10 @@ public class BluetoothCommunication implements Communication{
 		}
 		if(!s)
 			throw new Exception("Brick not found.");
-		socket = device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
+
+        System.out.println(device.getName());
+
+		socket = device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805f9b34fb"));
 		socket.connect();
         in = socket.getInputStream();
         out = socket.getOutputStream();
