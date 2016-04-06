@@ -86,4 +86,24 @@ public class Robot {
         }
     }
 
+    public void rotarIzquierda(){
+        System.out.println("Robot rota a la izquierda");
+        try {
+            ev3.directCommand.timeMotorSpeed(-20, 1000, true, OutputPort.B);
+            ev3.directCommand.timeMotorSpeed(20, 1000, true, OutputPort.C);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void rotarDerecha(){
+        System.out.println("Robot rota a la derecha");
+        try {
+            ev3.directCommand.timeMotorSpeed(20, 1000, true, OutputPort.B);
+            ev3.directCommand.timeMotorSpeed(-20, 1000, true, OutputPort.C);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

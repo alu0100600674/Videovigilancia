@@ -72,6 +72,14 @@ public class RobotSocket {
                                 robot.moverDerecha();
 //                                System.out.println("derecha");
                                 break;
+                            case "legoev3rotarizquierda":
+                                robot.rotarIzquierda();
+//                                System.out.println("rotar izquierda");
+                                break;
+                            case "legoev3rotarderecha":
+                                robot.rotarDerecha();
+//                                System.out.println("rotar derecha");
+                                break;
                             case "videovigilanciaflash":
 //                                globales.getCamAct().startFlash();
                                 serv.iniciarFlash();
