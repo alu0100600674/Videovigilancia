@@ -18,7 +18,6 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity {
 
     private GlobalClass globales;
-    Brick ev3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,40 +39,11 @@ public class MainActivity extends AppCompatActivity {
         globales.getServidor().cargarDesdeBDD(globales.getBaseDeDatos().getServData());
 
 
-
-//        globales.ini_robot();
-
-//        ev3 = new Brick(new BluetoothCommunication());
-//        try {
-//            ev3.connect();
-//            ev3.directCommand.playTone(100,(short)500,(short)1000);
-//        } catch (Exception e) {
-//            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-//            e.printStackTrace();
-//        }
-
         globales.ini_robot();
-
         globales.ini_robotSocket();
         globales.getRobotSocket().setRobot(globales.getRobot());
         globales.getRobotSocket().abrirSocket();
         globales.getRobotSocket().setServidor(globales.getServidor());
-
-//        Button robot_pruebas = (Button) findViewById(R.id.robot_pruebas);
-//        robot_pruebas.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                try {
-////                    ev3.directCommand.playTone(100, (short)2000, (short)1000);
-////                    ev3.directCommand.startMotor(OutputPort.B);
-//                    ev3.directCommand.timeMotorSpeed(20, 1000, true, OutputPort.B);
-//                    ev3.directCommand.timeMotorSpeed(-20, 1000, true, OutputPort.C);
-//                    System.out.println("boton");
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
     }
 
     @Override
