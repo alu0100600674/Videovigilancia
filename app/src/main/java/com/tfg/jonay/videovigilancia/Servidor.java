@@ -39,8 +39,10 @@ public class Servidor extends Activity implements RtspClient.Callback,
 
     SurfaceView surfaceView;
 
-    String macAddress;
-    String ip, port, path;
+    private String macAddress;
+    private String ip_actual;
+
+    private String ip, port, path;
 
     public Servidor(){
 
@@ -59,6 +61,10 @@ public class Servidor extends Activity implements RtspClient.Callback,
 
     public void setMacAddress(String mac){
         macAddress = mac;
+    }
+
+    public void setIpActual(String ip){
+        ip_actual = ip;
     }
 
     public void iniciar(SurfaceView sView, Context context){
@@ -113,7 +119,7 @@ public class Servidor extends Activity implements RtspClient.Callback,
             System.out.println("iniciar");
             session.startPreview();
             client.startStream();
-            Request.newUser(macAddress, requestQueue, ip + ":" + port + "/" + path + "/", web_url);
+            Request.newUser(macAddress, requestQueue, ip + ":" + port + "/" + path + "/", web_url, ip_actual);
 
         }else{
             session.stopPreview();

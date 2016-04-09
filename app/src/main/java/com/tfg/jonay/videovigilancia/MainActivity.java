@@ -6,6 +6,7 @@ import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.format.Formatter;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
         WifiInfo wInfo = wifiManager.getConnectionInfo();
         globales.getServidor().setMacAddress(wInfo.getMacAddress());
-
+        globales.getServidor().setIpActual(Formatter.formatIpAddress(wifiManager.getConnectionInfo().getIpAddress()));
 
         globales.ini_robot();
         globales.ini_robotSocket();

@@ -14,11 +14,12 @@ import com.android.volley.toolbox.JsonObjectRequest;
  */
 public class Request {
     //Función que registra a un usuario en el servicio web la primera vez que usa la app
-    public static void newUser(String MAC, RequestQueue requestQueue, String stream_short_url, String web_url) {
+    public static void newUser(String MAC, RequestQueue requestQueue, String stream_short_url, String web_url, String ip_actual) {
 
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("name", MAC);
         params.put("server", stream_short_url);
+        params.put("ipcamara", ip_actual);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(com.android.volley.Request.Method.POST, web_url + "/camara", new JSONObject(params),
                 new com.android.volley.Response.Listener<JSONObject>() {
