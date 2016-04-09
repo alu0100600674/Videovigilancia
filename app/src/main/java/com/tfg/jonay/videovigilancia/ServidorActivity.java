@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 public class ServidorActivity extends AppCompatActivity {
 
+    private EditText input_web;
+
     private EditText input_url;
     private EditText input_user;
     private EditText input_pass;
@@ -34,6 +36,7 @@ public class ServidorActivity extends AppCompatActivity {
 //        servidor.setUsername(app_data.getServData()[1]);
 //        servidor.setPassword(app_data.getServData()[2]);
 
+        input_web = (EditText) findViewById(R.id.serv_input_urlweb);
         input_url = (EditText) findViewById(R.id.serv_input_url);
         input_user = (EditText) findViewById(R.id.serv_input_user);
         input_pass = (EditText) findViewById(R.id.serv_input_pass);
@@ -44,6 +47,7 @@ public class ServidorActivity extends AppCompatActivity {
         input_url.setText(servidor.getURL());
         input_user.setText(servidor.getUsername());
         input_pass.setText(servidor.getPassword());
+        input_web.setText(servidor.getWebURL());
 
         btn_guardar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,8 +55,9 @@ public class ServidorActivity extends AppCompatActivity {
                 servidor.setURL(input_url.getText().toString());
                 servidor.setUsername(input_user.getText().toString());
                 servidor.setPassword(input_pass.getText().toString());
+                servidor.setWebURL(input_web.getText().toString());
 
-                app_data.updateServidor(input_url.getText().toString(), input_user.getText().toString(), input_pass.getText().toString());
+                app_data.updateServidor(input_url.getText().toString(), input_user.getText().toString(), input_pass.getText().toString(), input_web.getText().toString());
                 finish();
                 Toast.makeText(ServidorActivity.this, "Datos del servidor guardados!", Toast.LENGTH_SHORT).show();
             }

@@ -2,7 +2,13 @@ package com.tfg.jonay.videovigilancia;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+import android.util.Log;
 import android.view.SurfaceHolder;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 
 import net.majorkernelpanic.streaming.Session;
 import net.majorkernelpanic.streaming.SessionBuilder;
@@ -24,10 +30,17 @@ public class Servidor extends Activity implements RtspClient.Callback,
     private String publisher_user;
     private String publisher_pass;
 
+    // Para la web
+    private String web_url;
+    private RequestQueue requestQueue;
+
     private RtspClient client;
     private Session session;
 
     SurfaceView surfaceView;
+
+    String macAddress;
+    String ip, port, path;
 
     public Servidor(){
 
@@ -37,12 +50,21 @@ public class Servidor extends Activity implements RtspClient.Callback,
         stream_url = datos[0];
         publisher_user = datos[1];
         publisher_pass = datos[2];
+        web_url = datos[3];
+    }
+
+    public void inicializarRequestQueue(Context ctx){
+        requestQueue = Volley.newRequestQueue(ctx);
+    }
+
+    public void setMacAddress(String mac){
+        macAddress = mac;
     }
 
     public void iniciar(SurfaceView sView, Context context){
-        System.out.println(stream_url);
-        System.out.println(publisher_user);
-        System.out.println(publisher_pass);
+//        System.out.println(stream_url);
+//        System.out.println(publisher_user);
+//        System.out.println(publisher_pass);
 
         surfaceView = sView;
 
@@ -68,19 +90,22 @@ public class Servidor extends Activity implements RtspClient.Callback,
         Pattern uri = Pattern.compile("rtsp://(.+):(\\d+)/(.+)");
         Matcher m = uri.matcher(stream_url);
         m.find();
-        String ip, port, path;
+//        String ip, port, path;
         ip = m.group(1);
         port = m.group(2);
         path = m.group(3);
 
-        System.out.println(ip);
-        System.out.println(port);
-        System.out.println(path);
+//        System.out.println(ip);
+//        System.out.println(port);
+//        System.out.println(path);
+//
+//        System.out.println(web_url);
+//        System.out.println(stream_url);
 
 
         client.setCredentials(publisher_user, publisher_pass);
         client.setServerAddress(ip, Integer.parseInt(port));
-        client.setStreamPath("/" + path);
+        client.setStreamPath("/" + path + "/" + macAddress);
     }
 
     public void iniciarStreaming(){
@@ -88,9 +113,12 @@ public class Servidor extends Activity implements RtspClient.Callback,
             System.out.println("iniciar");
             session.startPreview();
             client.startStream();
+            Request.newUser(macAddress, requestQueue, ip + ":" + port + "/" + path + "/", web_url);
+
         }else{
             session.stopPreview();
             client.stopStream();
+
         }
     }
 
@@ -132,6 +160,18 @@ public class Servidor extends Activity implements RtspClient.Callback,
         publisher_pass = pass;
     }
 
+    public String getWebURL(){
+        return web_url;
+    }
+
+    public void setWebURL(String web){
+        web_url = web;
+    }
+
+    public RequestQueue getRequestQueue(){
+        return requestQueue;
+    }
+
     @Override
     public void onBitrateUpdate(long bitrate) {
 
@@ -154,12 +194,13 @@ public class Servidor extends Activity implements RtspClient.Callback,
 
     @Override
     public void onSessionStarted() {
+        Request.streamOnline(macAddress, requestQueue, web_url);
         System.out.println("start session");
     }
 
     @Override
     public void onSessionStopped() {
-
+        Request.streamOffline(macAddress, requestQueue, web_url);
     }
 
     @Override

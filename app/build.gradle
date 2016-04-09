@@ -26,4 +26,5 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     compile project (':libstreaming')
     compile project (':legoev3')
+    compile 'com.mcxiaoke.volley:library:1.0.19'
 }

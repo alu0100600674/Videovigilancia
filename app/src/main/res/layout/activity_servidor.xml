@@ -10,12 +10,26 @@
     tools:context="com.tfg.jonay.videovigilancia.ServidorActivity"
     android:focusable="true"
     android:focusableInTouchMode="true">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/serv_text_urlweb"
+        android:text="@string/serv_urlweb"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/serv_input_urlweb"
+        android:layout_below="@+id/serv_text_urlweb"
+        android:layout_marginBottom="15dp"/>
     
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
         android:id="@+id/serv_text_url"
-        android:text="@string/serv_url"/>
+        android:text="@string/serv_url"
+        android:layout_below="@id/serv_input_urlweb"/>
     
     <EditText
         android:layout_width="match_parent"

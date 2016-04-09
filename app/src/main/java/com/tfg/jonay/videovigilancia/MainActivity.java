@@ -1,8 +1,12 @@
 package com.tfg.jonay.videovigilancia;
 
+import android.content.Context;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
 
         globales.ini_serv();
         globales.getServidor().cargarDesdeBDD(globales.getBaseDeDatos().getServData());
+        globales.getServidor().inicializarRequestQueue(this);
+        WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
+        WifiInfo wInfo = wifiManager.getConnectionInfo();
+        globales.getServidor().setMacAddress(wInfo.getMacAddress());
 
 
         globales.ini_robot();
