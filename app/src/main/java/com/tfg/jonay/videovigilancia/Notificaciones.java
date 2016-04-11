@@ -71,7 +71,7 @@ public class Notificaciones {
     public void enviarSmsMovimiento(){
         Time now = new Time(Time.getCurrentTimezone());
         now.setToNow();
-        String mensaje = nombre_app + ": Movimiento detectado el día " + now.monthDay + "/" + now.month + "/" + now.year + " a las " + now.format("%k:%M:%S") + ".";
+        String mensaje = nombre_app + ": Movimiento detectado el día " + now.monthDay + "/" + (now.month + 1) + "/" + now.year + " a las " + now.format("%k:%M:%S") + ".";
         for(int i = 0; i < destinatarios.size(); i++){
             if(destinatarios.get(i).getEstado()){
                 sms_manager.sendTextMessage(destinatarios.get(i).getNumero(), null, mensaje, null, null);
