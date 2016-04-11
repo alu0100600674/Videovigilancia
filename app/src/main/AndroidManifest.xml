@@ -40,9 +40,12 @@
         <activity
             android:name=".CameraActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".RobotActivity" />
-        <activity android:name=".ServidorActivity" />
-        <activity android:name=".NotificacionesActivity"></activity>
+        <activity android:name=".RobotActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ServidorActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".NotificacionesActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
