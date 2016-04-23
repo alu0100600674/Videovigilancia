@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/legoev3" />
             <option value="$PROJECT_DIR$/libstreaming" />
+            <option value="$PROJECT_DIR$/motiondetector" />
           </set>
         </option>
       </GradleProjectSettings>
