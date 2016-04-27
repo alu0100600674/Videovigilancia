@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Videovigilancia</string>
+    <string name="app_name">RoboCAM</string>
     <string name="action_settings">Ajustes</string>
     <string name="ver_video">Ver Vídeo</string>
     <string name="parar_video">Parar Vídeo</string>
