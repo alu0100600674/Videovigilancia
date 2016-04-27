@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        toolbar.setLogo(R.mipmap.ic_launcher2);
+
         globales = (GlobalClass) getApplicationContext();
         if(globales.getNotificaciones() == null){
             globales.ini();
