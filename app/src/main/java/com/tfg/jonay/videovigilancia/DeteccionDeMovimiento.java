@@ -1,5 +1,6 @@
 package com.tfg.jonay.videovigilancia;
 
+import android.hardware.Camera;
 import android.widget.Toast;
 
 import com.jwetherell.motiondetection.detection.IMotionDetection;
@@ -13,6 +14,8 @@ public class DeteccionDeMovimiento {
 
     private Thread threadMov;
     private byte[] data;
+
+    private Camera camera;
 
     public DeteccionDeMovimiento(byte[] dat){
         data = dat;

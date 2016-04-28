@@ -1,11 +1,16 @@
 package com.tfg.jonay.videovigilancia;
 
 import android.graphics.Typeface;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.SurfaceHolder;
 import android.view.View;
 import android.widget.Button;
+
+import com.jwetherell.motiondetection.detection.IMotionDetection;
+import com.jwetherell.motiondetection.detection.RgbMotionDetection;
+import com.jwetherell.motiondetection.image.ImageProcessing;
 
 import java.io.IOException;
 
@@ -24,6 +29,8 @@ public class CameraActivity extends AppCompatActivity {
     private GlobalClass globales;
     private Notificaciones notif;
     private Servidor serv;
+
+    private Thread th_mov;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +94,49 @@ public class CameraActivity extends AppCompatActivity {
         btn_flash.setBackgroundColor(0xAAFF0000);
         btn_video.setBackgroundColor(0xAAFF0000);
 
+
+//        th_mov = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                final Camera cammov = Camera.open();
+////                cammov.setDisplayOrientation(90);
+//
+//                Camera.Parameters param = cammov.getParameters();
+//                param.setPreviewFrameRate(30);
+//                param.setPreviewFpsRange(15000, 30000);
+//                cammov.setParameters(param);
+//                try {
+//                    cammov.setPreviewDisplay(surfaceView.getHolder());
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                cammov.addCallbackBuffer(new byte[3110400]);
+//                cammov.setPreviewCallbackWithBuffer(new Camera.PreviewCallback() {
+//                    @Override
+//                    public void onPreviewFrame(byte[] data, Camera camera) {
+//                        cammov.addCallbackBuffer(data);
+//                        int[] rgb = ImageProcessing.decodeYUV420SPtoRGB(data, 1152, 648);
+//                        IMotionDetection detector = new RgbMotionDetection();
+//                        boolean detected = detector.detect(rgb, 1152, 648);
+//                        System.out.println("----->Bool:  " + detected);
+//
+//                        if(detected){
+//                            cammov.stopPreview();
+//                            cammov.release();
+//                            try {
+//                                th_mov.wait();
+//                            } catch (InterruptedException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    }
+//                });
+//                cammov.startPreview();
+//            }
+//        });
+//        th_mov.start();
+
+
         btn_movimiento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,13 +154,53 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     public void startCamara() throws IOException{
-        serv.iniciarStreaming();
+        final Camera cammov = Camera.open();
+//                cammov.setDisplayOrientation(90);
+
+        Camera.Parameters param = cammov.getParameters();
+        param.setPreviewFrameRate(30);
+        param.setPreviewFpsRange(15000, 30000);
+        cammov.setParameters(param);
+        try {
+            cammov.setPreviewDisplay(surfaceView.getHolder());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        cammov.addCallbackBuffer(new byte[3110400]);
+        cammov.setPreviewCallbackWithBuffer(new Camera.PreviewCallback() {
+            @Override
+            public void onPreviewFrame(byte[] data, Camera camera) {
+                cammov.addCallbackBuffer(data);
+                int[] rgb = ImageProcessing.decodeYUV420SPtoRGB(data, 1152, 648);
+                IMotionDetection detector = new RgbMotionDetection();
+                boolean detected = detector.detect(rgb, 1152, 648);
+                System.out.println("----->Bool:  " + detected);
+
+                if(detected){
+                    cammov.stopPreview();
+//                    cammov.release();
+//                    serv.iniciarStreaming();
+                    startStreaming();
+                }
+            }
+        });
+        cammov.startPreview();
+
+
+//        th_mov.start();
+//        th_mov.interrupt();
+
+//        serv.iniciarStreaming();
         if(!encendida){
             btn_video.setBackgroundColor(0xAA009900);
         }else{
             btn_video.setBackgroundColor(0xAAFF0000);
         }
         encendida = !encendida;
+    }
+
+    private void startStreaming(){
+        serv.iniciarStreaming();
     }
 
     public void startFlash(){
