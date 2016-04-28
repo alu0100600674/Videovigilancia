@@ -21,7 +21,7 @@ public class CameraActivity extends AppCompatActivity {
     private Button btn_movimiento;
     private net.majorkernelpanic.streaming.gl.SurfaceView surfaceView;
     private SurfaceHolder surfaceHolder;
-//    private Camera camara;
+    private Camera cammov;
 //    private Camera.Parameters p;
     private boolean encendida;
     private boolean flash;
@@ -154,7 +154,7 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     public void startCamara() throws IOException{
-        final Camera cammov = Camera.open();
+        cammov = Camera.open();
 //                cammov.setDisplayOrientation(90);
 
         Camera.Parameters param = cammov.getParameters();
@@ -176,10 +176,11 @@ public class CameraActivity extends AppCompatActivity {
                 boolean detected = detector.detect(rgb, 1152, 648);
                 System.out.println("----->Bool:  " + detected);
 
-                if(detected){
-                    cammov.stopPreview();
-//                    cammov.release();
+                if (detected) {
+//                    cammov.stopPreview();
+                    cammov.release();
 //                    serv.iniciarStreaming();
+                    serv.iniciar(surfaceView, getApplicationContext());
                     startStreaming();
                 }
             }
@@ -200,6 +201,7 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     private void startStreaming(){
+//        cammov.release();
         serv.iniciarStreaming();
     }
 
