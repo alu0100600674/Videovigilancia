@@ -142,6 +142,10 @@ public class Servidor extends Activity implements RtspClient.Callback,
         return session;
     }
 
+    public RtspClient getClient(){
+        return client;
+    }
+
     public String getURL(){
         return stream_url;
     }

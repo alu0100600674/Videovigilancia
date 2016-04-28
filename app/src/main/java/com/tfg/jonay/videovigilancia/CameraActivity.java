@@ -32,6 +32,9 @@ public class CameraActivity extends AppCompatActivity {
 
     private Thread th_mov;
 
+    private boolean emitiendo = false;
+    private boolean camRelease = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,44 +157,70 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     public void startCamara() throws IOException{
-        cammov = Camera.open();
+        // Si la camara y el streaming estan descativados
+        // Si la camara esta encendida
+        // Si el streaming esta encendido
+
+        System.out.println("Emitiendo: " + serv.getClient().isStreaming());
+
+        if(camRelease && !emitiendo && !serv.getClient().isStreaming()){
+            System.out.println("Dos desactivados");
+            cammov = Camera.open();
 //                cammov.setDisplayOrientation(90);
 
-        Camera.Parameters param = cammov.getParameters();
-        param.setPreviewFrameRate(30);
-        param.setPreviewFpsRange(15000, 30000);
-        cammov.setParameters(param);
-        try {
-            cammov.setPreviewDisplay(surfaceView.getHolder());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        cammov.addCallbackBuffer(new byte[3110400]);
-        cammov.setPreviewCallbackWithBuffer(new Camera.PreviewCallback() {
-            @Override
-            public void onPreviewFrame(byte[] data, Camera camera) {
-                cammov.addCallbackBuffer(data);
-                int[] rgb = ImageProcessing.decodeYUV420SPtoRGB(data, 1152, 648);
-                IMotionDetection detector = new RgbMotionDetection();
-                boolean detected = detector.detect(rgb, 1152, 648);
-                System.out.println("----->Bool:  " + detected);
-
-                if (detected) {
-//                    cammov.stopPreview();
-                    cammov.release();
-//                    serv.iniciarStreaming();
-                    serv.iniciar(surfaceView, getApplicationContext());
-                    startStreaming();
-                }
+            Camera.Parameters param = cammov.getParameters();
+            param.setPreviewFrameRate(30);
+            param.setPreviewFpsRange(15000, 30000);
+            cammov.setParameters(param);
+            try {
+                cammov.setPreviewDisplay(surfaceView.getHolder());
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        });
-        cammov.startPreview();
+            cammov.addCallbackBuffer(new byte[3110400]);
+            cammov.setPreviewCallbackWithBuffer(new Camera.PreviewCallback() {
+                @Override
+                public void onPreviewFrame(byte[] data, Camera camera) {
+                    cammov.addCallbackBuffer(data);
+                    int[] rgb = ImageProcessing.decodeYUV420SPtoRGB(data, 1152, 648);
+                    IMotionDetection detector = new RgbMotionDetection();
+                    boolean detected = detector.detect(rgb, 1152, 648);
+                    System.out.println("----->Bool:  " + detected);
+
+                    if (detected) {
+//                    cammov.stopPreview();
+                        cammov.release();
+//                    serv.iniciarStreaming();
+                        notif.enviarSmsMovimiento();
+                        serv.iniciar(surfaceView, getApplicationContext());
+                        startStreaming();
+                        emitiendo = true;
+                        camRelease = true;
+                    }
+                }
+            });
+            cammov.startPreview();
+            camRelease = false;
+        }
+
+        else if(!emitiendo && cammov != null && !serv.getClient().isStreaming()){
+            System.out.println("camara activada y sin emitir");
+            cammov.stopPreview();
+            cammov.release();
+            camRelease = true;
+
+//            cammov = null;
+        }
+
+        else if(emitiendo){
+            System.out.println("camara desactivada y emitiendo");
+            startStreaming();
+            emitiendo = false;
+        }
 
 
-//        th_mov.start();
-//        th_mov.interrupt();
 
-//        serv.iniciarStreaming();
+
         if(!encendida){
             btn_video.setBackgroundColor(0xAA009900);
         }else{
