@@ -154,6 +154,10 @@ public class CameraActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         serv.parar();
+//        cammov.stopPreview();
+        if(!camRelease){
+            cammov.release();
+        }
     }
 
     public void startCamara() throws IOException{
@@ -166,7 +170,7 @@ public class CameraActivity extends AppCompatActivity {
         if(camRelease && !emitiendo && !serv.getClient().isStreaming()){
             System.out.println("Dos desactivados");
             cammov = Camera.open();
-//                cammov.setDisplayOrientation(90);
+            cammov.setDisplayOrientation(90);
 
             Camera.Parameters param = cammov.getParameters();
             param.setPreviewFrameRate(30);
