@@ -34,6 +34,7 @@ public class CameraActivity extends AppCompatActivity {
 
     private boolean emitiendo = false;
     private boolean camRelease = true;
+    private int contadorFrame = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,16 +183,19 @@ public class CameraActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             cammov.addCallbackBuffer(new byte[3110400]);
+            contadorFrame = 0;
             cammov.setPreviewCallbackWithBuffer(new Camera.PreviewCallback() {
                 @Override
                 public void onPreviewFrame(byte[] data, Camera camera) {
+                    contadorFrame++;
+
                     cammov.addCallbackBuffer(data);
                     int[] rgb = ImageProcessing.decodeYUV420SPtoRGB(data, 1152, 648);
                     IMotionDetection detector = new RgbMotionDetection();
                     boolean detected = detector.detect(rgb, 1152, 648);
-                    System.out.println("----->Bool:  " + detected);
+//                    System.out.println("----->Bool:  " + detected + "  " + contadorFrame);
 
-                    if (detected) {
+                    if (detected && contadorFrame > 1) {
 //                    cammov.stopPreview();
                         cammov.release();
 //                    serv.iniciarStreaming();
@@ -201,6 +205,7 @@ public class CameraActivity extends AppCompatActivity {
                         emitiendo = true;
                         camRelease = true;
                     }
+                    contadorFrame = 2;
                 }
             });
             cammov.startPreview();
