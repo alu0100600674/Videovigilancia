@@ -48,6 +48,15 @@ public class Robot {
         }
     }
 
+    public void conectar2(String nombre_robot){
+        ev3 = new Brick(new BluetoothCommunication(nombre_robot));
+        try {
+            ev3.connect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void moverAdelante(){
         System.out.println("Robot hacia adelante");
         try {
