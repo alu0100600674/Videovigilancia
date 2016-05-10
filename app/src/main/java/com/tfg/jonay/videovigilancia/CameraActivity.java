@@ -151,7 +151,7 @@ public class CameraActivity extends AppCompatActivity {
         });
 
 //        globales.getRobot().conectar();
-        globales.getRobot().conectar2(globales.getRobotElegido());
+//        globales.getRobot().conectar2(globales.getRobotElegido());
     }
 
     @Override

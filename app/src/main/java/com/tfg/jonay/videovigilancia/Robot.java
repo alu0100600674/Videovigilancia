@@ -57,6 +57,14 @@ public class Robot {
         }
     }
 
+    public void desconectar(){
+        try {
+            ev3.disconnect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void moverAdelante(){
         System.out.println("Robot hacia adelante");
         try {

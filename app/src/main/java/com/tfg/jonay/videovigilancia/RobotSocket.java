@@ -57,27 +57,39 @@ public class RobotSocket {
                     while(true){
                         switch(in.readLine()){
                             case "legoev3arriba":
+                                globales.getRobot().conectar2(globales.getRobotElegido());
                                 robot.moverAdelante();
+                                globales.getRobot().desconectar();
 //                                System.out.println("arriba");
                                 break;
                             case "legoev3abajo":
+                                globales.getRobot().conectar2(globales.getRobotElegido());
                                 robot.moverAtras();
+                                globales.getRobot().desconectar();
 //                                System.out.println("abajo");
                                 break;
                             case "legoev3izquierda":
+                                globales.getRobot().conectar2(globales.getRobotElegido());
                                 robot.moverIzquierda();
+                                globales.getRobot().desconectar();
 //                                System.out.println("izquierda");
                                 break;
                             case "legoev3derecha":
+                                globales.getRobot().conectar2(globales.getRobotElegido());
                                 robot.moverDerecha();
+                                globales.getRobot().desconectar();
 //                                System.out.println("derecha");
                                 break;
                             case "legoev3rotarizquierda":
+                                globales.getRobot().conectar2(globales.getRobotElegido());
                                 robot.rotarIzquierda();
+                                globales.getRobot().desconectar();
 //                                System.out.println("rotar izquierda");
                                 break;
                             case "legoev3rotarderecha":
+                                globales.getRobot().conectar2(globales.getRobotElegido());
                                 robot.rotarDerecha();
+                                globales.getRobot().desconectar();
 //                                System.out.println("rotar derecha");
                                 break;
                             case "videovigilanciaflash":
