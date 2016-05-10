@@ -28,6 +28,8 @@ public class ServidorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_servidor);
 
+        setTitle("Configurar Servidor");
+
         globales = (GlobalClass) getApplicationContext();
         app_data = globales.getBaseDeDatos();
         servidor = globales.getServidor();

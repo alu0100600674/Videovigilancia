@@ -27,6 +27,8 @@ public class RobotActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_robot);
 
+        setTitle("Configurar Robot");
+
         bt_adapter = BluetoothAdapter.getDefaultAdapter();
 
         if(bt_adapter == null){ // Si bt_adapter es null, el dispositivo no tiene bluetooth.

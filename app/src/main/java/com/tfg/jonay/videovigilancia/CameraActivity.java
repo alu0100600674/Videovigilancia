@@ -41,6 +41,8 @@ public class CameraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
+        setTitle("Ver Vídeo");
+
         globales = (GlobalClass) getApplicationContext();
         notif = globales.getNotificaciones();
         serv = globales.getServidor();
