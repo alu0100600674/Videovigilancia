@@ -55,40 +55,41 @@ public class RobotSocket {
                 try {
                     BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                     while(true){
-                        switch(in.readLine()){
+                        String[] comando = in.readLine().split("-");
+                        switch(comando[0]){
                             case "legoev3arriba":
                                 globales.getRobot().conectar2(globales.getRobotElegido());
-                                robot.moverAdelante();
+                                robot.moverAdelante2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
                                 globales.getRobot().desconectar();
 //                                System.out.println("arriba");
                                 break;
                             case "legoev3abajo":
                                 globales.getRobot().conectar2(globales.getRobotElegido());
-                                robot.moverAtras();
+                                robot.moverAtras2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
                                 globales.getRobot().desconectar();
 //                                System.out.println("abajo");
                                 break;
                             case "legoev3izquierda":
                                 globales.getRobot().conectar2(globales.getRobotElegido());
-                                robot.moverIzquierda();
+                                robot.moverIzquierda2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
                                 globales.getRobot().desconectar();
 //                                System.out.println("izquierda");
                                 break;
                             case "legoev3derecha":
                                 globales.getRobot().conectar2(globales.getRobotElegido());
-                                robot.moverDerecha();
+                                robot.moverDerecha2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
                                 globales.getRobot().desconectar();
 //                                System.out.println("derecha");
                                 break;
                             case "legoev3rotarizquierda":
                                 globales.getRobot().conectar2(globales.getRobotElegido());
-                                robot.rotarIzquierda();
+                                robot.rotarIzquierda2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
                                 globales.getRobot().desconectar();
 //                                System.out.println("rotar izquierda");
                                 break;
                             case "legoev3rotarderecha":
                                 globales.getRobot().conectar2(globales.getRobotElegido());
-                                robot.rotarDerecha();
+                                robot.rotarDerecha2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
                                 globales.getRobot().desconectar();
 //                                System.out.println("rotar derecha");
                                 break;

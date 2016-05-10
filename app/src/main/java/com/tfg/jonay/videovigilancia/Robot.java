@@ -75,11 +75,31 @@ public class Robot {
         }
     }
 
+    public void moverAdelante2(int velocidad, int tiempo){
+        System.out.println("Robot hacia adelante");
+        try {
+            ev3.directCommand.timeMotorSpeed(velocidad, (tiempo * 1000), true, OutputPort.B);
+            ev3.directCommand.timeMotorSpeed(velocidad, (tiempo * 1000), true, OutputPort.C);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void moverAtras(){
         System.out.println("Robot hacia atrás");
         try {
             ev3.directCommand.timeMotorSpeed(-20, 1000, true, OutputPort.B);
             ev3.directCommand.timeMotorSpeed(-20, 1000, true, OutputPort.C);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void moverAtras2(int velocidad, int tiempo){
+        System.out.println("Robot hacia atrás");
+        try {
+            ev3.directCommand.timeMotorSpeed(-(velocidad), (tiempo * 1000), true, OutputPort.B);
+            ev3.directCommand.timeMotorSpeed(-(velocidad), (tiempo * 1000), true, OutputPort.C);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -94,10 +114,28 @@ public class Robot {
         }
     }
 
+    public void moverIzquierda2(int velocidad, int tiempo){
+        System.out.println("Robot hacia la izquierda");
+        try {
+            ev3.directCommand.timeMotorSpeed(velocidad, (tiempo * 1000), true, OutputPort.C);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void moverDerecha(){
         System.out.println("Robot hacia la derecha");
         try {
             ev3.directCommand.timeMotorSpeed(20, 1000, true, OutputPort.B);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void moverDerecha2(int velocidad, int tiempo){
+        System.out.println("Robot hacia la derecha");
+        try {
+            ev3.directCommand.timeMotorSpeed(velocidad, (tiempo * 1000), true, OutputPort.B);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -113,11 +151,31 @@ public class Robot {
         }
     }
 
+    public void rotarIzquierda2(int velocidad, int tiempo){
+        System.out.println("Robot rota a la izquierda");
+        try {
+            ev3.directCommand.timeMotorSpeed(-(velocidad), (tiempo * 1000), true, OutputPort.B);
+            ev3.directCommand.timeMotorSpeed(velocidad, (tiempo * 1000), true, OutputPort.C);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void rotarDerecha(){
         System.out.println("Robot rota a la derecha");
         try {
             ev3.directCommand.timeMotorSpeed(20, 1000, true, OutputPort.B);
             ev3.directCommand.timeMotorSpeed(-20, 1000, true, OutputPort.C);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void rotarDerecha2(int velocidad, int tiempo){
+        System.out.println("Robot rota a la derecha");
+        try {
+            ev3.directCommand.timeMotorSpeed(velocidad, (tiempo * 1000), true, OutputPort.B);
+            ev3.directCommand.timeMotorSpeed(-(velocidad), (tiempo * 1000), true, OutputPort.C);
         } catch (IOException e) {
             e.printStackTrace();
         }
