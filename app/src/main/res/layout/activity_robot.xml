@@ -9,10 +9,30 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.tfg.jonay.videovigilancia.RobotActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/robot_elegido_titulo"
+        android:text="Robot Elegido:"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/robot_elegido"
+        android:layout_below="@+id/robot_elegido_titulo"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lista_bt_devices_titulo"
+        android:text="Lista de dispositivos:"
+        android:layout_below="@+id/robot_elegido"/>
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/lista_bt_devices">
+        android:id="@+id/lista_bt_devices"
+        android:layout_below="@+id/lista_bt_devices_titulo">
 
     </ListView>
 

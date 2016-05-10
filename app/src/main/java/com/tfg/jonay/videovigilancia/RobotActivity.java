@@ -8,8 +8,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -22,10 +25,17 @@ public class RobotActivity extends AppCompatActivity {
     private ArrayList<String> listado;
     ArrayAdapter<String> adaptador;
 
+    private GlobalClass globales;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_robot);
+
+        globales = (GlobalClass) getApplicationContext();
+
+        TextView robot_elegido = (TextView) findViewById(R.id.robot_elegido);
+        robot_elegido.setText(globales.getBaseDeDatos().getRobotData());
 
         setTitle("Configurar Robot");
 
@@ -54,6 +64,16 @@ public class RobotActivity extends AppCompatActivity {
             listado = new ArrayList<>();
             adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listado);
             dispositivos.setAdapter(adaptador);
+
+            dispositivos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    globales.setRobotElegido(dispositivos.getItemAtPosition(position).toString());
+                    globales.getBaseDeDatos().updateRobot(dispositivos.getItemAtPosition(position).toString());
+                    adaptador.notifyDataSetChanged();
+                    finish();
+                }
+            });
 
             IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
             registerReceiver(mReceiver, filter);

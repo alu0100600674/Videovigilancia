@@ -15,6 +15,8 @@ public class GlobalClass extends Application{
 
     private CameraActivity cam_act;
 
+    private String robot_elegido;
+
     public GlobalClass(){
 
     }
@@ -67,6 +69,14 @@ public class GlobalClass extends Application{
 
     public CameraActivity getCamAct(){
         return cam_act;
+    }
+
+    public String getRobotElegido(){
+        return robot_elegido;
+    }
+
+    public void setRobotElegido(String nombre){
+        robot_elegido = nombre;
     }
 
 }

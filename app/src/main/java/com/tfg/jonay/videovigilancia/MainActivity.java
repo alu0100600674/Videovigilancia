@@ -55,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         globales.getRobotSocket().setRobot(globales.getRobot());
         globales.getRobotSocket().abrirSocket();
         globales.getRobotSocket().setServidor(globales.getServidor());
+
+        globales.setRobotElegido(globales.getBaseDeDatos().getRobotData());
     }
 
     @Override

@@ -18,6 +18,7 @@ public class BaseDeDatos {
     public void crearTablas(){
         db.execSQL("CREATE TABLE IF NOT EXISTS destinatarios(nombre VARCHAR, numero VARCHAR, activo BOOLEAN);");
         db.execSQL("CREATE TABLE IF NOT EXISTS servidor(url VARCHAR, user VARCHAR, pass VARCHAR, web VARCHAR);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS robot(nombre VARCHAR);");
     }
 
 
@@ -76,6 +77,20 @@ public class BaseDeDatos {
             datos[1] = result.getString(1);
             datos[2] = result.getString(2);
             datos[3] = result.getString(3);
+        }
+        return datos;
+    }
+
+    public void updateRobot(String nombre){
+        db.execSQL("DELETE FROM robot");
+        db.execSQL("INSERT INTO robot VALUES('" + nombre + "')");
+    }
+
+    public String getRobotData(){
+        String datos = null;
+        Cursor result = db.rawQuery("SELECT * FROM robot;", null);
+        while(result.moveToNext()){
+            datos = result.getString(0);
         }
         return datos;
     }
