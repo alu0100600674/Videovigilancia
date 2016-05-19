@@ -49,33 +49,18 @@ public class RobotSocket {
         crearSocket();
     }
 
-    static String encodeString(String input) {
-        MessageDigest digest = null;
-        try {
-            digest = MessageDigest.getInstance("SHA-1");
-            byte[] inputBytes = input.getBytes();
-            byte[] hashBytes = digest.digest(inputBytes);
-            return Base64.encodeToString(hashBytes, Base64.NO_WRAP);
-        } catch (NoSuchAlgorithmException e) {
-            Log.e("TAG_TEST", e.getMessage(), e);
-        }
-        return "";
-    }
-
-    public static String decompress(byte[] compressed) throws IOException {
-        final int BUFFER_SIZE = 32;
-        ByteArrayInputStream is = new ByteArrayInputStream(compressed);
-        GZIPInputStream gis = new GZIPInputStream(is, BUFFER_SIZE);
-        StringBuilder string = new StringBuilder();
-        byte[] data = new byte[BUFFER_SIZE];
-        int bytesRead;
-        while ((bytesRead = gis.read(data)) != -1) {
-            string.append(new String(data, 0, bytesRead));
-        }
-        gis.close();
-        is.close();
-        return string.toString();
-    }
+//    static String encodeString(String input) {
+//        MessageDigest digest = null;
+//        try {
+//            digest = MessageDigest.getInstance("SHA-1");
+//            byte[] inputBytes = input.getBytes();
+//            byte[] hashBytes = digest.digest(inputBytes);
+//            return Base64.encodeToString(hashBytes, Base64.NO_WRAP);
+//        } catch (NoSuchAlgorithmException e) {
+//            Log.e("TAG_TEST", e.getMessage(), e);
+//        }
+//        return "";
+//    }
 
     private String obtenerMensaje(){
         return null;
@@ -105,6 +90,7 @@ public class RobotSocket {
                 }
 
                 try {
+//                    while(true){
                     BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                     BufferedWriter out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
 
@@ -132,6 +118,7 @@ public class RobotSocket {
                     */
 
                     while(true){
+//                        System.out.println("while");
 
                         int caracter = -1;
                         String msg = "";
@@ -140,10 +127,6 @@ public class RobotSocket {
                         }
 
                         System.out.println(msg);
-//                    }
-
-//                    while(true){
-//                        String[] comando = in.readLine().split("-");
                         String[] comando = msg.split("-");
                         switch(comando[0]){
                             case "legoev3arriba":
@@ -182,12 +165,11 @@ public class RobotSocket {
                                 globales.getRobot().desconectar();
 //                                System.out.println("rotar derecha");
                                 break;
-                            case "videovigilanciaflash":
+                            case "robocamflash":
 //                                globales.getCamAct().startFlash();
                                 serv.iniciarFlash();
                                 break;
                         }
-////                        System.out.println(in.readLine());
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -216,9 +198,6 @@ public class RobotSocket {
                         }
                     }
                 }
-
-
-
             }
         });
     }
