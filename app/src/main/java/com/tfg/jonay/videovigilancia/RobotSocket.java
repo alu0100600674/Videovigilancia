@@ -1,5 +1,6 @@
 package com.tfg.jonay.videovigilancia;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.util.Base64;
 import android.util.Log;
@@ -43,9 +44,12 @@ public class RobotSocket {
     private Servidor serv;
     private GlobalClass globales;
 
+    private BluetoothAdapter btAdapter;
+
     public RobotSocket(Context ctx){
         globales = (GlobalClass) ctx.getApplicationContext();
         puerto = 1234;
+        btAdapter = BluetoothAdapter.getDefaultAdapter();
         crearSocket();
     }
 
@@ -118,7 +122,7 @@ public class RobotSocket {
                     */
 
                     while(true){
-//                        System.out.println("while");
+                        System.out.println("while");
 
                         int caracter = -1;
                         String msg = "";
@@ -130,40 +134,64 @@ public class RobotSocket {
                         String[] comando = msg.split("-");
                         switch(comando[0]){
                             case "legoev3arriba":
-                                globales.getRobot().conectar2(globales.getRobotElegido());
-                                robot.moverAdelante2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
-                                globales.getRobot().desconectar();
+                                if(btAdapter != null){
+                                    if(btAdapter.isEnabled()){
+                                        globales.getRobot().conectar2(globales.getRobotElegido());
+                                        robot.moverAdelante2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
+                                        globales.getRobot().desconectar();
 //                                System.out.println("arriba");
+                                    }
+                                }
                                 break;
                             case "legoev3abajo":
-                                globales.getRobot().conectar2(globales.getRobotElegido());
-                                robot.moverAtras2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
-                                globales.getRobot().desconectar();
+                                if(btAdapter != null){
+                                    if(btAdapter.isEnabled()){
+                                        globales.getRobot().conectar2(globales.getRobotElegido());
+                                        robot.moverAtras2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
+                                        globales.getRobot().desconectar();
 //                                System.out.println("abajo");
+                                    }
+                                }
                                 break;
                             case "legoev3izquierda":
-                                globales.getRobot().conectar2(globales.getRobotElegido());
-                                robot.moverIzquierda2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
-                                globales.getRobot().desconectar();
+                                if(btAdapter != null){
+                                    if(btAdapter.isEnabled()){
+                                        globales.getRobot().conectar2(globales.getRobotElegido());
+                                        robot.moverIzquierda2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
+                                        globales.getRobot().desconectar();
 //                                System.out.println("izquierda");
+                                    }
+                                }
                                 break;
                             case "legoev3derecha":
-                                globales.getRobot().conectar2(globales.getRobotElegido());
-                                robot.moverDerecha2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
-                                globales.getRobot().desconectar();
+                                if(btAdapter != null){
+                                    if(btAdapter.isEnabled()){
+                                        globales.getRobot().conectar2(globales.getRobotElegido());
+                                        robot.moverDerecha2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
+                                        globales.getRobot().desconectar();
 //                                System.out.println("derecha");
+                                    }
+                                }
                                 break;
                             case "legoev3rotarizquierda":
-                                globales.getRobot().conectar2(globales.getRobotElegido());
-                                robot.rotarIzquierda2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
-                                globales.getRobot().desconectar();
+                                if(btAdapter != null){
+                                    if(btAdapter.isEnabled()){
+                                        globales.getRobot().conectar2(globales.getRobotElegido());
+                                        robot.rotarIzquierda2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
+                                        globales.getRobot().desconectar();
 //                                System.out.println("rotar izquierda");
+                                    }
+                                }
                                 break;
                             case "legoev3rotarderecha":
-                                globales.getRobot().conectar2(globales.getRobotElegido());
-                                robot.rotarDerecha2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
-                                globales.getRobot().desconectar();
+                                if(btAdapter != null){
+                                    if(btAdapter.isEnabled()){
+                                        globales.getRobot().conectar2(globales.getRobotElegido());
+                                        robot.rotarDerecha2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
+                                        globales.getRobot().desconectar();
 //                                System.out.println("rotar derecha");
+                                    }
+                                }
                                 break;
                             case "robocamflash":
 //                                globales.getCamAct().startFlash();
