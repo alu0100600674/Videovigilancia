@@ -80,6 +80,8 @@ public class RobotSocket {
                     e.printStackTrace();
                 }
 
+                while(true){
+
                 try {
                     clientSocket = serverSocket.accept();
                 } catch (IOException e) {
@@ -121,21 +123,21 @@ public class RobotSocket {
                     System.out.println(in.readLine());
                     */
 
-                    while(true){
+//                    while (true) {
                         System.out.println("while");
 
                         int caracter = -1;
                         String msg = "";
-                        while((caracter = in.read()) != 10){
+                        while ((caracter = in.read()) != 10) {
                             msg += (char) caracter;
                         }
 
                         System.out.println(msg);
                         String[] comando = msg.split("-");
-                        switch(comando[0]){
+                        switch (comando[0]) {
                             case "legoev3arriba":
-                                if(btAdapter != null){
-                                    if(btAdapter.isEnabled()){
+                                if (btAdapter != null) {
+                                    if (btAdapter.isEnabled()) {
                                         globales.getRobot().conectar2(globales.getRobotElegido());
                                         robot.moverAdelante2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
                                         globales.getRobot().desconectar();
@@ -144,8 +146,8 @@ public class RobotSocket {
                                 }
                                 break;
                             case "legoev3abajo":
-                                if(btAdapter != null){
-                                    if(btAdapter.isEnabled()){
+                                if (btAdapter != null) {
+                                    if (btAdapter.isEnabled()) {
                                         globales.getRobot().conectar2(globales.getRobotElegido());
                                         robot.moverAtras2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
                                         globales.getRobot().desconectar();
@@ -154,8 +156,8 @@ public class RobotSocket {
                                 }
                                 break;
                             case "legoev3izquierda":
-                                if(btAdapter != null){
-                                    if(btAdapter.isEnabled()){
+                                if (btAdapter != null) {
+                                    if (btAdapter.isEnabled()) {
                                         globales.getRobot().conectar2(globales.getRobotElegido());
                                         robot.moverIzquierda2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
                                         globales.getRobot().desconectar();
@@ -164,8 +166,8 @@ public class RobotSocket {
                                 }
                                 break;
                             case "legoev3derecha":
-                                if(btAdapter != null){
-                                    if(btAdapter.isEnabled()){
+                                if (btAdapter != null) {
+                                    if (btAdapter.isEnabled()) {
                                         globales.getRobot().conectar2(globales.getRobotElegido());
                                         robot.moverDerecha2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
                                         globales.getRobot().desconectar();
@@ -174,8 +176,8 @@ public class RobotSocket {
                                 }
                                 break;
                             case "legoev3rotarizquierda":
-                                if(btAdapter != null){
-                                    if(btAdapter.isEnabled()){
+                                if (btAdapter != null) {
+                                    if (btAdapter.isEnabled()) {
                                         globales.getRobot().conectar2(globales.getRobotElegido());
                                         robot.rotarIzquierda2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
                                         globales.getRobot().desconectar();
@@ -184,8 +186,8 @@ public class RobotSocket {
                                 }
                                 break;
                             case "legoev3rotarderecha":
-                                if(btAdapter != null){
-                                    if(btAdapter.isEnabled()){
+                                if (btAdapter != null) {
+                                    if (btAdapter.isEnabled()) {
                                         globales.getRobot().conectar2(globales.getRobotElegido());
                                         robot.rotarDerecha2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
                                         globales.getRobot().desconectar();
@@ -198,11 +200,11 @@ public class RobotSocket {
                                 serv.iniciarFlash();
                                 break;
                         }
-                    }
+//                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 } finally {
-                    if(clientSocket != null){
+                    if (clientSocket != null) {
                         try {
                             clientSocket.close();
                         } catch (IOException e) {
@@ -210,7 +212,7 @@ public class RobotSocket {
                         }
                     }
 
-                    if(DIS != null){
+                    if (DIS != null) {
                         try {
                             DIS.close();
                         } catch (IOException e) {
@@ -218,7 +220,7 @@ public class RobotSocket {
                         }
                     }
 
-                    if(DOS != null){
+                    if (DOS != null) {
                         try {
                             DOS.close();
                         } catch (IOException e) {
@@ -226,6 +228,7 @@ public class RobotSocket {
                         }
                     }
                 }
+            }
             }
         });
     }
