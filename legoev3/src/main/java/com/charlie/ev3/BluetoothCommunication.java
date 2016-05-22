@@ -80,7 +80,8 @@ public class BluetoothCommunication implements Communication{
 	 */
 	@Override
 	public void write(byte[] data) throws IOException{
-        out.write(data);
+		if(out != null) // Condicional añadido a la api para evitar que la app se cierre si no esta el socket bt disponible.
+        	out.write(data);
 	}
 	/**
 	 * 从EV3主机拉取数据。
