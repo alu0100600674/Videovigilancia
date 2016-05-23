@@ -18,6 +18,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.security.MessageDigest;
@@ -46,28 +47,14 @@ public class RobotSocket {
 
     private BluetoothAdapter btAdapter;
 
+    private boolean socketAbierto;
+
     public RobotSocket(Context ctx){
         globales = (GlobalClass) ctx.getApplicationContext();
         puerto = 1234;
+        socketAbierto = true;
         btAdapter = BluetoothAdapter.getDefaultAdapter();
         crearSocket();
-    }
-
-//    static String encodeString(String input) {
-//        MessageDigest digest = null;
-//        try {
-//            digest = MessageDigest.getInstance("SHA-1");
-//            byte[] inputBytes = input.getBytes();
-//            byte[] hashBytes = digest.digest(inputBytes);
-//            return Base64.encodeToString(hashBytes, Base64.NO_WRAP);
-//        } catch (NoSuchAlgorithmException e) {
-//            Log.e("TAG_TEST", e.getMessage(), e);
-//        }
-//        return "";
-//    }
-
-    private String obtenerMensaje(){
-        return null;
     }
 
     private void crearSocket(){
@@ -76,55 +63,36 @@ public class RobotSocket {
             public void run() {
                 try {
                     serverSocket = new ServerSocket(puerto);
+//                    serverSocket = new ServerSocket();
+//                    serverSocket.setReuseAddress(true);
+//                    serverSocket.bind(new InetSocketAddress(puerto));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
-                while(true){
+//                while(true){
+                while(socketAbierto){
 
-                try {
-                    clientSocket = serverSocket.accept();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                    if(serverSocket == null) break;
 
-                try {
-                    DIS = new DataInputStream(clientSocket.getInputStream());
-                    DOS = new DataOutputStream(clientSocket.getOutputStream());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                try {
-//                    while(true){
-                    BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                    BufferedWriter out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
-
-                    /* Este código comentado no se usa, era para usar con websocket
-                    String line = "";
-                    while ((line = in.readLine()) != null) {
-                        System.out.println(line);
-                        if (line.contains("Sec-WebSocket-Key: ")) {
-                            break;
-                        }
+                    try {
+                        clientSocket = serverSocket.accept();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
 
-                    String[] key = line.split(": ");
-                    if(key.length > 1){
-                        key[1] = key[1] + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
-                        key[1] = encodeString(key[1]);
+//                    try {
+//                        DIS = new DataInputStream(clientSocket.getInputStream());
+//                        DOS = new DataOutputStream(clientSocket.getOutputStream());
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
 
-                        String header = "HTTP/1.1 101 Web Socket Protocol Handshake\r\n" + "Upgrade: websocket\r\n" +
-                                "Connection: Upgrade\r\n" + "Sec-WebSocket-Accept:" + key[1] + "\r\n\r\n";
-                        DOS.writeUTF(header);
-                    }
+//                    if(clientSocket == null) break;
 
-                    System.out.println(in.readLine());
-                    System.out.println(in.readLine());
-                    */
-
-//                    while (true) {
-                        System.out.println("while");
+                    try {
+                        BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+//                        BufferedWriter out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
 
                         int caracter = -1;
                         String msg = "";
@@ -141,7 +109,7 @@ public class RobotSocket {
                                         globales.getRobot().conectar2(globales.getRobotElegido());
                                         robot.moverAdelante2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
                                         globales.getRobot().desconectar();
-//                                System.out.println("arriba");
+//                                        System.out.println("arriba");
                                     }
                                 }
                                 break;
@@ -151,7 +119,7 @@ public class RobotSocket {
                                         globales.getRobot().conectar2(globales.getRobotElegido());
                                         robot.moverAtras2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
                                         globales.getRobot().desconectar();
-//                                System.out.println("abajo");
+//                                        System.out.println("abajo");
                                     }
                                 }
                                 break;
@@ -161,7 +129,7 @@ public class RobotSocket {
                                         globales.getRobot().conectar2(globales.getRobotElegido());
                                         robot.moverIzquierda2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
                                         globales.getRobot().desconectar();
-//                                System.out.println("izquierda");
+//                                        System.out.println("izquierda");
                                     }
                                 }
                                 break;
@@ -171,7 +139,7 @@ public class RobotSocket {
                                         globales.getRobot().conectar2(globales.getRobotElegido());
                                         robot.moverDerecha2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
                                         globales.getRobot().desconectar();
-//                                System.out.println("derecha");
+//                                        System.out.println("derecha");
                                     }
                                 }
                                 break;
@@ -181,7 +149,7 @@ public class RobotSocket {
                                         globales.getRobot().conectar2(globales.getRobotElegido());
                                         robot.rotarIzquierda2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
                                         globales.getRobot().desconectar();
-//                                System.out.println("rotar izquierda");
+//                                        System.out.println("rotar izquierda");
                                     }
                                 }
                                 break;
@@ -191,7 +159,7 @@ public class RobotSocket {
                                         globales.getRobot().conectar2(globales.getRobotElegido());
                                         robot.rotarDerecha2(Integer.parseInt(comando[1]), Integer.parseInt(comando[2]));
                                         globales.getRobot().desconectar();
-//                                System.out.println("rotar derecha");
+//                                        System.out.println("rotar derecha");
                                     }
                                 }
                                 break;
@@ -200,35 +168,34 @@ public class RobotSocket {
                                 serv.iniciarFlash();
                                 break;
                         }
-//                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    if (clientSocket != null) {
-                        try {
-                            clientSocket.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (clientSocket != null) {
+                            try {
+                                clientSocket.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }
 
-                    if (DIS != null) {
-                        try {
-                            DIS.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    if (DOS != null) {
-                        try {
-                            DOS.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+//                        if (DIS != null) {
+//                            try {
+//                                DIS.close();
+//                            } catch (IOException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//
+//                        if (DOS != null) {
+//                            try {
+//                                DOS.close();
+//                            } catch (IOException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
                     }
                 }
-            }
             }
         });
     }
@@ -250,6 +217,15 @@ public class RobotSocket {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void cerrarSocket2(){
+        socketAbierto = false;
+//        try {
+//            serverSocket.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void setRobot(Robot r){
