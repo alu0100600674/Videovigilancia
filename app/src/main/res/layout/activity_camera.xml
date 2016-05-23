@@ -40,12 +40,32 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <Button
-        android:layout_width="@dimen/icon_btn"
-        android:layout_height="@dimen/icon_btn"
-        android:id="@+id/btn_simular_mov"
-        android:text="@string/simular_mov"
-        android:layout_below="@id/view_cam"
-        android:layout_centerHorizontal="true"/>
+    <!--<Button-->
+        <!--android:layout_width="@dimen/icon_btn"-->
+        <!--android:layout_height="@dimen/icon_btn"-->
+        <!--android:id="@+id/btn_simular_mov"-->
+        <!--android:text="@string/simular_mov"-->
+        <!--android:layout_below="@id/view_cam"-->
+        <!--android:layout_centerHorizontal="true"/>-->
+
+    <!--<Button-->
+        <!--android:layout_width="@dimen/icon_btn"-->
+        <!--android:layout_height="@dimen/icon_btn"-->
+        <!--android:id="@+id/btn_streaming"-->
+        <!--android:text="@string/icon_streaming"-->
+        <!--android:textSize="@dimen/icon_text"-->
+        <!--android:layout_alignTop="@+id/btn_flash"-->
+        <!--android:layout_toLeftOf="@+id/btn_flash"-->
+        <!--android:layout_toStartOf="@+id/btn_flash" />-->
+
+    <!--<Button-->
+        <!--android:layout_width="@dimen/icon_btn"-->
+        <!--android:layout_height="@dimen/icon_btn"-->
+        <!--android:id="@+id/btn_mov"-->
+        <!--android:text="@string/icon_mov"-->
+        <!--android:textSize="@dimen/icon_text"-->
+        <!--android:layout_alignTop="@+id/ver_video"-->
+        <!--android:layout_toRightOf="@+id/ver_video"-->
+        <!--android:layout_toEndOf="@+id/ver_video" />-->
 
 </RelativeLayout>

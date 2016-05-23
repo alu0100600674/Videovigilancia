@@ -122,10 +122,16 @@ public class Servidor extends Activity implements RtspClient.Callback,
             Request.newUser(macAddress, requestQueue, ip + ":" + port + "/" + path + "/", web_url, ip_actual);
 
         }else{
+            System.out.println("parar");
             session.stopPreview();
             client.stopStream();
 
         }
+    }
+
+    public void pararStreaming(){
+        session.stopPreview();
+        client.stopStream();
     }
 
     public void iniciarFlash(){

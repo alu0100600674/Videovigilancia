@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 //        globales.getRobotSocket().cerrarSocket();
-        globales.getRobotSocket().cerrarSocket2();
+//        globales.getRobotSocket().cerrarSocket2();
     }
 
     @Override

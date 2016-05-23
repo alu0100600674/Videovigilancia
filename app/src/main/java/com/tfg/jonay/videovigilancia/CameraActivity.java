@@ -22,7 +22,9 @@ public class CameraActivity extends AppCompatActivity {
 
     private Button btn_video;
     private Button btn_flash;
-    private Button btn_movimiento;
+//    private Button btn_movimiento;
+//    private Button btn_streaming;
+//    private Button btn_mov;
     private net.majorkernelpanic.streaming.gl.SurfaceView surfaceView;
     private SurfaceHolder surfaceHolder;
     private Camera cammov;
@@ -59,10 +61,14 @@ public class CameraActivity extends AppCompatActivity {
 
         btn_video = (Button) findViewById(R.id.ver_video);
         btn_flash = (Button) findViewById(R.id.btn_flash);
-        btn_movimiento = (Button) findViewById(R.id.btn_simular_mov);
+//        btn_movimiento = (Button) findViewById(R.id.btn_simular_mov);
+//        btn_streaming = (Button) findViewById(R.id.btn_streaming);
+//        btn_mov = (Button) findViewById(R.id.btn_mov);
         btn_flash.setTypeface(font);
         btn_video.setTypeface(font);
-        btn_movimiento.setTypeface(font);
+//        btn_movimiento.setTypeface(font);
+//        btn_streaming.setTypeface(font);
+//        btn_mov.setTypeface(font);
         surfaceView = (net.majorkernelpanic.streaming.gl.SurfaceView) findViewById(R.id.view_cam);
         surfaceHolder = surfaceView.getHolder();
         encendida = false;
@@ -149,12 +155,30 @@ public class CameraActivity extends AppCompatActivity {
 //        th_mov.start();
 
 
-        btn_movimiento.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                notif.enviarSmsMovimiento();
-            }
-        });
+//        btn_movimiento.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                notif.enviarSmsMovimiento();
+//            }
+//        });
+
+//        btn_streaming.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                try {
+//                    startCamaraStreaming();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//
+//        btn_mov.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startCamaraMovimiento();
+//            }
+//        });
 
 //        globales.getRobot().conectar();
 //        globales.getRobot().conectar2(globales.getRobotElegido());
@@ -204,8 +228,60 @@ public class CameraActivity extends AppCompatActivity {
             BluetoothAdapter bt_adapter = BluetoothAdapter.getDefaultAdapter();
             bt_adapter.disable();
         }
+//        globales.getRobotSocket().cerrarSocket();
+        globales.getRobotSocket().cerrarSocket2();
     }
 
+    /* Solo Streaming */
+    public void startCamaraStreaming() throws IOException{
+        startStreaming();
+    }
+
+    /* Solo Detección de Movimiento */
+    public void startCamaraMovimiento(){
+        cammov = Camera.open();
+        cammov.setDisplayOrientation(90);
+
+        Camera.Parameters param = cammov.getParameters();
+        param.setPreviewFrameRate(30);
+        param.setPreviewFpsRange(15000, 30000);
+        cammov.setParameters(param);
+        try {
+            cammov.setPreviewDisplay(surfaceView.getHolder());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        cammov.addCallbackBuffer(new byte[3110400]);
+        contadorFrame = 0;
+        cammov.setPreviewCallbackWithBuffer(new Camera.PreviewCallback() {
+            @Override
+            public void onPreviewFrame(byte[] data, Camera camera) {
+                contadorFrame++;
+
+                cammov.addCallbackBuffer(data);
+                int[] rgb = ImageProcessing.decodeYUV420SPtoRGB(data, 1152, 648);
+                IMotionDetection detector = new RgbMotionDetection();
+                boolean detected = detector.detect(rgb, 1152, 648);
+//                    System.out.println("----->Bool:  " + detected + "  " + contadorFrame);
+
+                if (detected && contadorFrame > 1) {
+//                    cammov.stopPreview();
+                    cammov.release();
+//                    serv.iniciarStreaming();
+                    notif.enviarSmsMovimiento();
+                    serv.iniciar(surfaceView, getApplicationContext());
+//                    startStreaming();
+                    emitiendo = true;
+                    camRelease = true;
+                }
+                contadorFrame = 2;
+            }
+        });
+        cammov.startPreview();
+        camRelease = false;
+    }
+
+    /* Detección de movimiento y después streaming */
     public void startCamara() throws IOException{
         // Si la camara y el streaming estan descativados
         // Si la camara esta encendida
@@ -268,7 +344,8 @@ public class CameraActivity extends AppCompatActivity {
 
         else if(emitiendo){
             System.out.println("camara desactivada y emitiendo");
-            startStreaming();
+//            startStreaming();
+            serv.pararStreaming();
             emitiendo = false;
         }
 
