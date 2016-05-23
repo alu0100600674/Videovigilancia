@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         globales.ini_robot();
         globales.ini_robotSocket();
         globales.getRobotSocket().setRobot(globales.getRobot());
-        globales.getRobotSocket().abrirSocket();
+//        globales.getRobotSocket().abrirSocket(); // Trasladado a CameraActivity.
         globales.getRobotSocket().setServidor(globales.getServidor());
 
         globales.setRobotElegido(globales.getBaseDeDatos().getRobotData());

@@ -188,6 +188,8 @@ public class CameraActivity extends AppCompatActivity {
                 bt_dialog.show();
             }
         }
+
+        globales.getRobotSocket().abrirSocket();
     }
 
     @Override
