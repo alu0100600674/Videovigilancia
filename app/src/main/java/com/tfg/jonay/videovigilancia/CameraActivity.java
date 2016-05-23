@@ -40,6 +40,8 @@ public class CameraActivity extends AppCompatActivity {
     private boolean camRelease = true;
     private int contadorFrame = 0;
 
+    private boolean ActivityActivaBt = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -174,6 +176,7 @@ public class CameraActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         bt_adapter.enable();
+                        ActivityActivaBt = true;
                     }
                 });
                 bt_dialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -194,6 +197,10 @@ public class CameraActivity extends AppCompatActivity {
 //        cammov.stopPreview();
         if(!camRelease){
             cammov.release();
+        }
+        if(ActivityActivaBt){
+            BluetoothAdapter bt_adapter = BluetoothAdapter.getDefaultAdapter();
+            bt_adapter.disable();
         }
     }
 
