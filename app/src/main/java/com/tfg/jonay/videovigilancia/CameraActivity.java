@@ -1,5 +1,9 @@
 package com.tfg.jonay.videovigilancia;
 
+import android.app.AlertDialog;
+import android.bluetooth.BluetoothAdapter;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.hardware.Camera;
 import android.os.Bundle;
@@ -152,6 +156,35 @@ public class CameraActivity extends AppCompatActivity {
 
 //        globales.getRobot().conectar();
 //        globales.getRobot().conectar2(globales.getRobotElegido());
+
+        final BluetoothAdapter bt_adapter = BluetoothAdapter.getDefaultAdapter();
+
+        if(bt_adapter == null){ // Si bt_adapter es null, el dispositivo no tiene bluetooth.
+
+        }else{
+            if(!bt_adapter.isEnabled()){ // Si el bluetooth esta desactivado, pedimos la activación al usuario.
+//                Intent bt_enable_intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+//                startActivityForResult(bt_enable_intent, 1);
+
+                AlertDialog.Builder bt_dialog = new AlertDialog.Builder(this);
+                bt_dialog.setTitle("Activar Bluetooth");
+                bt_dialog.setMessage("Para utilizar el robot debe activar el Bluetooth.");
+                bt_dialog.setCancelable(false);
+                bt_dialog.setPositiveButton("Activar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        bt_adapter.enable();
+                    }
+                });
+                bt_dialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                bt_dialog.show();
+            }
+        }
     }
 
     @Override
