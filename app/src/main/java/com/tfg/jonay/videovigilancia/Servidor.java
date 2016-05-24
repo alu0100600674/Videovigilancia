@@ -63,6 +63,10 @@ public class Servidor extends Activity implements RtspClient.Callback,
         macAddress = mac;
     }
 
+    public String getMacAddress(){
+        return macAddress;
+    }
+
     public void setIpActual(String ip){
         ip_actual = ip;
     }

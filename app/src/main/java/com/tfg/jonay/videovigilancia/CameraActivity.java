@@ -230,6 +230,7 @@ public class CameraActivity extends AppCompatActivity {
         }
 //        globales.getRobotSocket().cerrarSocket();
         globales.getRobotSocket().cerrarSocket2();
+        Request.streamOffline(serv.getMacAddress(), serv.getRequestQueue(), serv.getWebURL());
     }
 
     /* Solo Streaming */
