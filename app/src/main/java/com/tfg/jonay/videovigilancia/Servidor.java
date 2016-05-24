@@ -214,7 +214,7 @@ public class Servidor extends Activity implements RtspClient.Callback,
 
     @Override
     public void onSessionStarted() {
-        Request.streamOnline(macAddress, requestQueue, web_url);
+        Request.streamOnline(macAddress, requestQueue, web_url, ip_actual);
         System.out.println("start session");
     }
 

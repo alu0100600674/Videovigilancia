@@ -41,9 +41,32 @@ public class Request {
 
 
     //Función que establece un video como online
-    public static void streamOnline(String MAC, RequestQueue requestQueue, String web_url) {
+//    public static void streamOnline(String MAC, RequestQueue requestQueue, String web_url) {
+//
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(com.android.volley.Request.Method.PUT, web_url + "/online/" + MAC,
+//                new com.android.volley.Response.Listener<JSONObject>() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        Log.d("Volley streamOnline Request ", response.toString());
+//                    }
+//                },
+//                new com.android.volley.Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        Log.d("Volley streamOnline Request Error ", error.toString());
+//                    }
+//                });
+//
+//        requestQueue.add(jsonObjectRequest);
+//    }
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(com.android.volley.Request.Method.PUT, web_url + "/online/" + MAC,
+    //Función que establece un video como online
+    public static void streamOnline(String MAC, RequestQueue requestQueue, String web_url, String ip_actual) {
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("name", MAC);
+        params.put("ipcamara", ip_actual);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(com.android.volley.Request.Method.PUT, web_url + "/online/" + MAC, new JSONObject(params),
                 new com.android.volley.Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
