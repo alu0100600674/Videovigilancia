@@ -61,10 +61,11 @@ public class Request {
 //    }
 
     //Función que establece un video como online
-    public static void streamOnline(String MAC, RequestQueue requestQueue, String web_url, String ip_actual) {
+    public static void streamOnline(String MAC, RequestQueue requestQueue, String web_url, String ip_actual, String stream_short_url) {
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("name", MAC);
         params.put("ipcamara", ip_actual);
+        params.put("server", stream_short_url);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(com.android.volley.Request.Method.PUT, web_url + "/online/" + MAC, new JSONObject(params),
                 new com.android.volley.Response.Listener<JSONObject>() {
