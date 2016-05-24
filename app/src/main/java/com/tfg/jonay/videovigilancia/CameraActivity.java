@@ -229,7 +229,7 @@ public class CameraActivity extends AppCompatActivity {
             bt_adapter.disable();
         }
 //        globales.getRobotSocket().cerrarSocket();
-        globales.getRobotSocket().cerrarSocket2();
+//        globales.getRobotSocket().cerrarSocket2();
         Request.streamOffline(serv.getMacAddress(), serv.getRequestQueue(), serv.getWebURL());
     }
 

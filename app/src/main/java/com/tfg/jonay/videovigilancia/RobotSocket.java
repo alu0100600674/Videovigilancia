@@ -201,7 +201,11 @@ public class RobotSocket {
     }
 
     public void abrirSocket(){
-        threadSocket.start();
+//        threadSocket.start();
+
+        if(threadSocket.getState() == Thread.State.NEW){
+            threadSocket.start();
+        }
     }
 
     public void cerrarSocket(){
