@@ -1,5 +1,6 @@
 package com.tfg.jonay.videovigilancia;
 
+import android.content.Context;
 import android.telephony.SmsManager;
 import android.text.format.Time;
 
@@ -14,14 +15,20 @@ public class Notificaciones {
     private ArrayList<Contacto> destinatarios;
     private String nombre_app;
 
+    private Context ctx;
+
     public Notificaciones(String app_name){
         nombre_app = app_name;
         sms_manager = SmsManager.getDefault();
         destinatarios = new ArrayList<>();
     }
 
+    public void setContext(Context c){
+        ctx = c;
+    }
+
     public boolean addDestinatario(Contacto contacto){
-        String mensaje = nombre_app + ": Ha sido añadido a la lista de notificaciones.";
+        String mensaje = nombre_app + ": " + ctx.getString(R.string.msg_anadido);
         boolean encontrado = false;
         for(int i = 0; i < destinatarios.size(); i++){ // Comprobar que el número no estaba ya en la lista.
             if(destinatarios.get(i).getNumero().equals(contacto.getNumero())){
@@ -39,7 +46,7 @@ public class Notificaciones {
     public boolean delDestinatario(Contacto contacto){
         for(int i = 0; i < destinatarios.size(); i++){
             if(destinatarios.get(i).getNumero() == contacto.getNumero()){
-                String mensaje = nombre_app + ": Ha sido eliminado de la lista de notificaciones.";
+                String mensaje = nombre_app + ": " + ctx.getString(R.string.msg_eliminado);
                 sms_manager.sendTextMessage(contacto.getNumero(), null, mensaje, null, null);
                 destinatarios.remove(i);
                 return true;
@@ -71,7 +78,7 @@ public class Notificaciones {
     public void enviarSmsMovimiento(){
         Time now = new Time(Time.getCurrentTimezone());
         now.setToNow();
-        String mensaje = nombre_app + ": Movimiento detectado el día " + now.monthDay + "/" + (now.month + 1) + "/" + now.year + " a las " + now.format("%k:%M:%S") + ".";
+        String mensaje = nombre_app + ": " + ctx.getString(R.string.msg_movimiento_parte1) + " " + now.monthDay + "/" + (now.month + 1) + "/" + now.year + " " + ctx.getString(R.string.msg_movimiento_parte2) + " " + now.format("%k:%M:%S") + ".";
         for(int i = 0; i < destinatarios.size(); i++){
             if(destinatarios.get(i).getEstado()){
                 sms_manager.sendTextMessage(destinatarios.get(i).getNumero(), null, mensaje, null, null);

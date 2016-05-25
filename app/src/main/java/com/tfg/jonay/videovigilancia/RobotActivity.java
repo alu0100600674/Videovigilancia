@@ -37,7 +37,7 @@ public class RobotActivity extends AppCompatActivity {
         TextView robot_elegido = (TextView) findViewById(R.id.robot_elegido);
         robot_elegido.setText(globales.getBaseDeDatos().getRobotData());
 
-        setTitle("Configurar Robot");
+        setTitle(R.string.config_robot);
 
         bt_adapter = BluetoothAdapter.getDefaultAdapter();
 

@@ -35,7 +35,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="@dimen/btn_p_principal"
-        android:text="Añadir numero"
+        android:text="@string/add_numero"
         android:id="@+id/btn_add_numero"
         android:layout_below="@+id/btn_add_destinatario"
         android:layout_alignRight="@+id/btn_add_destinatario"

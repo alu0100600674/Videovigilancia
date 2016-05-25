@@ -1,7 +1,14 @@
 <resources>
     <string name="app_name">RoboCAM</string>
     <string name="action_settings">Ajustes</string>
+
+    <!-- Menú principal -->
     <string name="ver_video">Ver Vídeo</string>
+    <string name="config_serv">Configurar servidor</string>
+    <string name="config_robot">Configurar robot</string>
+    <string name="config_notif">Configurar notificaciones</string>
+
+    <!-- Ver vídeo -->
     <string name="parar_video">Parar Vídeo</string>
     <string name="flash_on">F.ON</string>
     <string name="flash_off">F.OFF</string>
@@ -10,17 +17,54 @@
     <string name="icon_streaming">&#xf03d;</string>
     <string name="icon_mov">&#xf047;</string>
     <string name="icon_stop">&#xf04d;</string>
-    <string name="config_serv">Configurar servidor</string>
-    <string name="config_robot">Configurar robot</string>
-    <string name="config_notif">Configurar notificaciones</string>
-    <string name="add_destino">Añadir destinatario</string>
-    <string name="del_destino">Eliminar destinatario</string>
     <string name="simular_mov">&#xf0c0;</string>
+    <string name="activar_blu">Activar Bluetooth</string>
+    <string name="activar">Activar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="robot_blu">Para utilizar el robot debe activar el Bluetooth.</string>
 
+    <!-- Configurar servidor -->
     <string name="serv_urlweb">URL servidor web:</string>
     <string name="serv_url">URL servidor streaming:</string>
     <string name="usuario">Usuario:</string>
     <string name="contrasena">Contraseña:</string>
     <string name="guardar">Guardar</string>
     <string name="ver_contrasena">Ver contraseña</string>
+    <string name="datos_serv_guardados">Datos del servidor guardados!</string>
+
+    <!-- Configurar robot -->
+    <string name="robot_elegido">Robot elegido:</string>
+    <string name="lista_dispositivos">Lista de dispositivos:</string>
+
+    <!-- Configurar notificaciones -->
+    <string name="add_destino">Añadir destinatario</string>
+    <string name="add_numero">Añadir número</string>
+    <string name="del_destino">Eliminar destinatario</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="habilitar">Habilitar</string>
+    <string name="deshabilitar">Deshabilitar</string>
+    <string name="cambiar_nombre">Cambiar nombre</string>
+    <string name="introduce_num">Introduce número</string>
+    <string name="destinatarios">Destinatarios:</string>
+    <string name="operacion_cancelada">Operación cancelada!</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="anadido">añadido!</string>
+    <string name="eliminado">eliminado!</string>
+    <string name="pregunta_add_destinatario">¿Añadir el destinatario</string>
+    <string name="pregunta_del_destinatario">¿Eliminar el destinatario</string>
+    <string name="habilitar_destino">Habilitar destinatario</string>
+    <string name="deshabilitar_destino">Deshabilitar destinatario</string>
+    <string name="pregunta_habilitar_destino">¿Habilitar el destinatario</string>
+    <string name="pregunta_deshabilitar_destino">¿Deshabilitar el destinatario</string>
+    <string name="habilitado">habilitado!</string>
+    <string name="deshabilitado">deshabilitado!</string>
+    <string name="pregunta_cambiar_nombre">Cambiar el nombre para</string>
+    <string name="destino_renombrado">Destinatario renombrado!</string>
+    <string name="sin_nombre">Sin nombre</string>
+
+    <!-- SMS -->
+    <string name="msg_anadido">Ha sido añadido a la lista de notificaciones.</string>
+    <string name="msg_eliminado">Ha sido eliminado de la lista de notificaciones.</string>
+    <string name="msg_movimiento_parte1">Movimiento detectado el día</string>
+    <string name="msg_movimiento_parte2">a las</string>
 </resources>

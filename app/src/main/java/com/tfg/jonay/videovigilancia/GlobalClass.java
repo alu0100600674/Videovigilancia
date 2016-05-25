@@ -23,6 +23,7 @@ public class GlobalClass extends Application{
 
     public void ini(){
         notificaciones = new Notificaciones(getString(R.string.app_name));
+        notificaciones.setContext(getApplicationContext());
     }
 
     public void ini_bdd(){

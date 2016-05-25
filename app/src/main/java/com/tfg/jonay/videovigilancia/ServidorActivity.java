@@ -28,7 +28,7 @@ public class ServidorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_servidor);
 
-        setTitle("Configurar Servidor");
+        setTitle(R.string.config_serv);
 
         globales = (GlobalClass) getApplicationContext();
         app_data = globales.getBaseDeDatos();
@@ -61,7 +61,7 @@ public class ServidorActivity extends AppCompatActivity {
 
                 app_data.updateServidor(input_url.getText().toString(), input_user.getText().toString(), input_pass.getText().toString(), input_web.getText().toString());
                 finish();
-                Toast.makeText(ServidorActivity.this, "Datos del servidor guardados!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ServidorActivity.this, R.string.datos_serv_guardados, Toast.LENGTH_SHORT).show();
             }
         });
 

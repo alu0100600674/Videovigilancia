@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/robot_elegido_titulo"
-        android:text="Robot Elegido:"/>
+        android:text="@string/robot_elegido"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/lista_bt_devices_titulo"
-        android:text="Lista de dispositivos:"
+        android:text="@string/lista_dispositivos"
         android:layout_below="@+id/robot_elegido"/>
 
     <ListView

@@ -1,5 +1,7 @@
 package com.tfg.jonay.videovigilancia;
 
+import android.content.res.Resources;
+
 /**
  * Created by jonay on 16/02/16.
  */
@@ -16,7 +18,7 @@ public class Contacto {
     }
 
     public Contacto(String num){
-        nombre = "Sin Nombre";
+        nombre = "Sin nombre";
         numero = num;
         activo = true;
     }

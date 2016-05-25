@@ -50,7 +50,7 @@ public class CameraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
-        setTitle("Ver Vídeo");
+        setTitle(R.string.ver_video);
 
         globales = (GlobalClass) getApplicationContext();
         notif = globales.getNotificaciones();
@@ -220,17 +220,17 @@ public class CameraActivity extends AppCompatActivity {
 //                startActivityForResult(bt_enable_intent, 1);
 
                 AlertDialog.Builder bt_dialog = new AlertDialog.Builder(this);
-                bt_dialog.setTitle("Activar Bluetooth");
-                bt_dialog.setMessage("Para utilizar el robot debe activar el Bluetooth.");
+                bt_dialog.setTitle(R.string.activar_blu);
+                bt_dialog.setMessage(R.string.robot_blu);
                 bt_dialog.setCancelable(false);
-                bt_dialog.setPositiveButton("Activar", new DialogInterface.OnClickListener() {
+                bt_dialog.setPositiveButton(R.string.activar, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         bt_adapter.enable();
                         ActivityActivaBt = true;
                     }
                 });
-                bt_dialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                bt_dialog.setNegativeButton(R.string.cancelar, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
