@@ -30,7 +30,7 @@
         android:layout_toStartOf="@+id/btn_add_numero"
         android:textSize="20dp"
         android:layout_toLeftOf="@+id/btn_add_numero"
-        android:hint="Introduce número"/>
+        android:hint="@string/introduce_num"/>
 
     <Button
         android:layout_width="wrap_content"

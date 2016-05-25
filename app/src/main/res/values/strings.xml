@@ -10,14 +10,14 @@
 
     <!-- Ver vídeo -->
     <string name="parar_video">Parar Vídeo</string>
-    <string name="flash_on">F.ON</string>
-    <string name="flash_off">F.OFF</string>
-    <string name="icon_flash">&#xf0e7;</string>
-    <string name="icon_video">&#xf047;&#xf03d;</string>
-    <string name="icon_streaming">&#xf03d;</string>
-    <string name="icon_mov">&#xf047;</string>
-    <string name="icon_stop">&#xf04d;</string>
-    <string name="simular_mov">&#xf0c0;</string>
+    <string name="flash_on" translatable="false">F.ON</string>
+    <string name="flash_off" translatable="false">F.OFF</string>
+    <string name="icon_flash" translatable="false">&#xf0e7;</string>
+    <string name="icon_video" translatable="false">&#xf047;&#xf03d;</string>
+    <string name="icon_streaming" translatable="false">&#xf03d;</string>
+    <string name="icon_mov" translatable="false">&#xf047;</string>
+    <string name="icon_stop" translatable="false">&#xf04d;</string>
+    <string name="simular_mov" translatable="false">&#xf0c0;</string>
     <string name="activar_blu">Activar Bluetooth</string>
     <string name="activar">Activar</string>
     <string name="cancelar">Cancelar</string>
