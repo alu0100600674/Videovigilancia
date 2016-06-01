@@ -9,9 +9,9 @@
     <string name="anadido">added!</string>
     <string name="cambiar_nombre">Rename</string>
     <string name="cancelar">Cancel</string>
-    <string name="config_notif">Config notifications</string>
-    <string name="config_robot">Config robot</string>
-    <string name="config_serv">Config server</string>
+    <string name="config_notif">Configure notifications</string>
+    <string name="config_robot">Configure robot</string>
+    <string name="config_serv">Configure server</string>
     <string name="confirmar">Confirm</string>
     <string name="contrasena">Password:</string>
     <string name="del_destino">Remove destination</string>
