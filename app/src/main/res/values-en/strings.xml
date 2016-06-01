@@ -9,9 +9,9 @@
     <string name="anadido">added!</string>
     <string name="cambiar_nombre">Rename</string>
     <string name="cancelar">Cancel</string>
-    <string name="config_notif">Config notifications</string>
-    <string name="config_robot">Config robot</string>
-    <string name="config_serv">Config server</string>
+    <string name="config_notif">Configure notifications</string>
+    <string name="config_robot">Configure robot</string>
+    <string name="config_serv">Configure server</string>
     <string name="confirmar">Confirm</string>
     <string name="contrasena">Password:</string>
     <string name="del_destino">Remove destination</string>
@@ -49,5 +49,5 @@
     <string name="pregunta_deshabilitar_destino">Disable the destination</string>
     <string name="pregunta_habilitar_destino">Enable the destination</string>
     <string name="introduce_numero">Enter number</string>
-    <string name="app_subtitle">Video Surveillance Secure Application</string>
+    <string name="app_subtitle">Secure Application of Video Surveillance</string>
 </resources>
