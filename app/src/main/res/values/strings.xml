@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">RoboCAM</string>
     <string name="action_settings">Ajustes</string>
+    <string name="app_subtitle">Aplicación Segura de Videovigilancia</string>
 
     <!-- Menú principal -->
     <string name="ver_video">Ver Vídeo</string>

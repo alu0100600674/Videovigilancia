@@ -49,4 +49,5 @@
     <string name="pregunta_deshabilitar_destino">Disable the destination</string>
     <string name="pregunta_habilitar_destino">Enable the destination</string>
     <string name="introduce_numero">Enter number</string>
+    <string name="app_subtitle">Video Surveillance Secure Application</string>
 </resources>
