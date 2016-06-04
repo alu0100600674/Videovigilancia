@@ -13,7 +13,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 public enum AES {
     ;
-    private static final String ENCRYPTION_KEY = "somepassword";
+    private static final String ENCRYPTION_KEY = "2Hm3F2ojOiKNHlOAwULW8g==";
     private static final String ENCRYPTION_IV = "4e5Wa71fYoT7MFEX";
 
     public static String cifrar(String msg) {
