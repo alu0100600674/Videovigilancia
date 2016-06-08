@@ -4,9 +4,13 @@ import android.content.Context;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
@@ -28,6 +32,38 @@ import javax.crypto.KeyAgreement;
  * Created by jonay on 4/06/16.
  */
 public class Certificado {
+
+    public static void guardarPublicaSerializada(String filename, PublicKey publicKey) throws IOException {
+        FileOutputStream fos = new FileOutputStream(filename);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(publicKey);
+        oos.close();
+    }
+
+    public static PublicKey leerPublicaSerializada(String filename) throws IOException, ClassNotFoundException {
+        FileInputStream fis = new FileInputStream(filename);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        PublicKey publicKey = (PublicKey) ois.readObject();
+        ois.close();
+
+        return publicKey;
+    }
+
+    public static void guardarPrivadaSerializada(String filename, PrivateKey privateKey) throws IOException {
+        FileOutputStream fos = new FileOutputStream(filename);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(privateKey);
+        oos.close();
+    }
+
+    public static PrivateKey leerPrivadaSerializada(String filename) throws IOException, ClassNotFoundException {
+        FileInputStream fis = new FileInputStream(filename);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        PrivateKey privateKey = (PrivateKey) ois.readObject();
+        ois.close();
+
+        return privateKey;
+    }
 
     public static PublicKey leerClavePublica(Context ctx, int certificadoID) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeySpecException, NoSuchProviderException {
         InputStream is = ctx.getResources().openRawResource(certificadoID);
