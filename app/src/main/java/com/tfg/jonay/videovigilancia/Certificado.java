@@ -12,13 +12,17 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.interfaces.ECPrivateKey;
+import java.security.spec.ECGenParameterSpec;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
@@ -63,6 +67,17 @@ public class Certificado {
         ois.close();
 
         return privateKey;
+    }
+
+    public static KeyPair generatePairKey() throws NoSuchProviderException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeySpecException {
+        KeyPair keyPair = null;
+
+        ECGenParameterSpec ecGenParameterSpec = new ECGenParameterSpec("secp128r1");
+        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("ECDH", "SC");
+        keyPairGenerator.initialize(ecGenParameterSpec);
+        keyPair = keyPairGenerator.generateKeyPair();
+
+        return keyPair;
     }
 
     public static PublicKey leerClavePublica(Context ctx, int certificadoID) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeySpecException, NoSuchProviderException {
