@@ -48,6 +48,7 @@ public class GlobalClass extends Application{
 
     public void ini_serv(){
         servidor = new Servidor();
+        servidor.setCtx(getApplicationContext());
     }
 
     public void ini_robot(){

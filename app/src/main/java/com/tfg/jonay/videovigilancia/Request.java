@@ -1,5 +1,6 @@
 package com.tfg.jonay.videovigilancia;
 
+import android.content.Context;
 import android.util.Log;
 import org.json.JSONObject;
 import java.util.HashMap;
@@ -48,6 +49,31 @@ public class Request {
         params.put("name", AES.cifrar(MAC));
         params.put("server", AES.cifrar(stream_short_url));
         params.put("ipcamara", AES.cifrar(ip_actual));
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(com.android.volley.Request.Method.POST, web_url + "/camara", new JSONObject(params),
+                new com.android.volley.Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("nUsuario Request ", response.toString());
+                    }
+                },
+                new com.android.volley.Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("nUsuario Request Error ", error.toString());
+                    }
+                });
+
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    public static void newUser(Context ctx, String MAC, RequestQueue requestQueue, String stream_short_url, String web_url, String ip_actual) {
+        GlobalClass globales = (GlobalClass) ctx.getApplicationContext();
+
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("name", AES.cifrar(MAC, globales.getClaveCompartida()));
+        params.put("server", AES.cifrar(stream_short_url, globales.getClaveCompartida()));
+        params.put("ipcamara", AES.cifrar(ip_actual, globales.getClaveCompartida()));
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(com.android.volley.Request.Method.POST, web_url + "/camara", new JSONObject(params),
                 new com.android.volley.Response.Listener<JSONObject>() {
@@ -120,6 +146,31 @@ public class Request {
         params.put("name", AES.cifrar(MAC));
         params.put("ipcamara", AES.cifrar(ip_actual));
         params.put("server", AES.cifrar(stream_short_url));
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(com.android.volley.Request.Method.PUT, web_url + "/online/" + MAC, new JSONObject(params),
+                new com.android.volley.Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("Online Request ", response.toString());
+                    }
+                },
+                new com.android.volley.Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Online Request Error ", error.toString());
+                    }
+                });
+
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    public static void streamOnline(Context ctx, String MAC, RequestQueue requestQueue, String web_url, String ip_actual, String stream_short_url) {
+        GlobalClass globales = (GlobalClass) ctx.getApplicationContext();
+
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("name", AES.cifrar(MAC, globales.getClaveCompartida()));
+        params.put("ipcamara", AES.cifrar(ip_actual, globales.getClaveCompartida()));
+        params.put("server", AES.cifrar(stream_short_url, globales.getClaveCompartida()));
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(com.android.volley.Request.Method.PUT, web_url + "/online/" + MAC, new JSONObject(params),
                 new com.android.volley.Response.Listener<JSONObject>() {

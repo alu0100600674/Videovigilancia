@@ -44,8 +44,14 @@ public class Servidor extends Activity implements RtspClient.Callback,
 
     private String ip, port, path;
 
+    private Context ctx;
+
     public Servidor(){
 
+    }
+
+    public void setCtx(Context c){
+        ctx = c;
     }
 
     public void cargarDesdeBDD(String[] datos){
@@ -123,7 +129,7 @@ public class Servidor extends Activity implements RtspClient.Callback,
             System.out.println("iniciar");
             session.startPreview();
             client.startStream();
-            Request.newUser(macAddress, requestQueue, ip + ":" + port + "/" + path + "/", web_url, ip_actual);
+            Request.newUser(ctx, macAddress, requestQueue, ip + ":" + port + "/" + path + "/", web_url, ip_actual);
 
         }else{
             System.out.println("parar");
@@ -214,7 +220,7 @@ public class Servidor extends Activity implements RtspClient.Callback,
 
     @Override
     public void onSessionStarted() {
-        Request.streamOnline(macAddress, requestQueue, web_url, ip_actual, ip + ":" + port + "/" + path + "/");
+        Request.streamOnline(ctx, macAddress, requestQueue, web_url, ip_actual, ip + ":" + port + "/" + path + "/");
         System.out.println("start session");
     }
 

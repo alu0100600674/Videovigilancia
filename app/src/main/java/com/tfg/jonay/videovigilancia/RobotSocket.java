@@ -99,7 +99,7 @@ public class RobotSocket {
                         while ((caracter = in.read()) != 10) {
                             msg += (char) caracter;
                         }
-                        msg = AES.descifrar(msg);
+                        msg = AES.descifrar(msg, globales.getClaveCompartida());
 
                         System.out.println(msg);
                         String[] comando = msg.split("-");
