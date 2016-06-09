@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -81,6 +82,20 @@ public class MainActivity extends AppCompatActivity {
         globales.getRobotSocket().setServidor(globales.getServidor());
 
         globales.setRobotElegido(globales.getBaseDeDatos().getRobotData());
+
+        try {
+            globales.ini_claves();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (NoSuchProviderException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

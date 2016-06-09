@@ -2,6 +2,14 @@ package com.tfg.jonay.videovigilancia;
 
 import android.app.Application;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Environment;
+
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 
 /**
  * Created by jonay on 16/02/16.
@@ -16,6 +24,12 @@ public class GlobalClass extends Application{
     private CameraActivity cam_act;
 
     private String robot_elegido;
+
+    // Claves
+    private PublicKey publicKey;
+    private PrivateKey privateKey;
+    private PublicKey publicKey_server;
+    private String clave_compartida;
 
     public GlobalClass(){
 
@@ -78,6 +92,43 @@ public class GlobalClass extends Application{
 
     public void setRobotElegido(String nombre){
         robot_elegido = nombre;
+    }
+
+    public void ini_claves() throws IOException, ClassNotFoundException, NoSuchAlgorithmException, InvalidKeyException, NoSuchProviderException {
+        // Claves del cliente
+        publicKey = Certificado.leerPublicaSerializada(Environment.getExternalStorageDirectory().getAbsolutePath() + "/cert/clientpub.ser");
+        privateKey = Certificado.leerPrivadaSerializada(Environment.getExternalStorageDirectory().getAbsolutePath() + "/cert/clientpri.ser");
+
+        // Clave del servidor
+        publicKey_server = Certificado.leerPublicaSerializada(Environment.getExternalStorageDirectory().getAbsolutePath() + "/cert/serverpub.ser");
+        PrivateKey tmp = Certificado.leerPrivadaSerializada(Environment.getExternalStorageDirectory().getAbsolutePath() + "/cert/serverpri.ser");
+
+        System.out.println("-------- CLIENTE --------");
+        System.out.println(publicKey);
+        System.out.println(privateKey);
+        System.out.println("-------- SERVIDOR -------");
+        System.out.println(publicKey_server);
+        System.out.println(tmp);
+
+        // Generar la compartida
+        clave_compartida = Certificado.generarClaveCompartida(privateKey, publicKey_server);
+        System.out.println(clave_compartida);
+    }
+
+    public PublicKey getClavePublica(){
+        return publicKey;
+    }
+
+    public PrivateKey getClavePrivada(){
+        return privateKey;
+    }
+
+    public PublicKey getClavePublicaServidor(){
+        return publicKey_server;
+    }
+
+    public String getClaveCompartida(){
+        return clave_compartida;
     }
 
 }
