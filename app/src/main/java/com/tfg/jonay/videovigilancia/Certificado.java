@@ -21,6 +21,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.security.Signature;
+import java.security.SignatureException;
 import java.security.interfaces.ECPrivateKey;
 import java.security.spec.ECGenParameterSpec;
 import java.security.spec.InvalidKeySpecException;
@@ -157,6 +159,23 @@ public class Certificado {
         Crypto.base64Encode(sharedKeyBytes);
 
         return Crypto.base64Encode(sharedKeyBytes);
+    }
+
+    public static byte[] firmar(PrivateKey privada, String mensaje) throws NoSuchProviderException, NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException, SignatureException {
+        Signature ecdsaSign = Signature.getInstance("SHA256withECDSA", "SC");
+        ecdsaSign.initSign(privada);
+        ecdsaSign.update(mensaje.getBytes("UTF-8"));
+        System.out.println(Crypto.base64Encode(mensaje.getBytes("UTF-8")));
+        byte[] signature = ecdsaSign.sign();
+        return signature;
+    }
+
+    public static boolean verificarFirma(PublicKey publica, String mensaje_firmado, byte[] firma) throws NoSuchProviderException, NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException, SignatureException {
+        Signature ecdsaVerify = Signature.getInstance("SHA256withECDSA", "SC");
+        ecdsaVerify.initVerify(publica);
+        ecdsaVerify.update(mensaje_firmado.getBytes("UTF-8"));
+        boolean result = ecdsaVerify.verify(firma);
+        return result;
     }
 
 }

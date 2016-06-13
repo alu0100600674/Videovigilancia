@@ -33,6 +33,8 @@ import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.Security;
+import java.security.Signature;
+import java.security.SignatureException;
 import java.security.cert.Certificate;
 import java.security.spec.ECGenParameterSpec;
 import java.security.spec.InvalidKeySpecException;
@@ -96,6 +98,31 @@ public class MainActivity extends AppCompatActivity {
         } catch (NoSuchProviderException e) {
             e.printStackTrace();
         }
+
+
+        String texto  = "holaa como estas";
+        String texto2 = "holaa como estass";
+        try {
+            byte[] firma = Certificado.firmar(globales.getClavePrivada(), texto);
+
+            byte[] firmanode = Crypto.base64Decode("MCQCELoYQ5tEbweviySVjGyhvIYCEKRpjlpgPl5Wm2UNSGyimyY=");
+
+            System.out.println("Firma: " + Crypto.base64Encode(firma));
+            System.out.println("Firma valida: " + Certificado.verificarFirma(globales.getClavePublica(), texto, firma));
+
+        } catch (NoSuchProviderException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (SignatureException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     @Override
