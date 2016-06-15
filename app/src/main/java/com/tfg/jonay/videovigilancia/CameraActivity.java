@@ -43,6 +43,8 @@ public class CameraActivity extends AppCompatActivity {
     private boolean camRelease = true;
     private int contadorFrame = 0;
 
+    private boolean yaentro = false;
+
     private boolean ActivityActivaBt = false;
 
     @Override
@@ -334,6 +336,7 @@ public class CameraActivity extends AppCompatActivity {
             }
             cammov.addCallbackBuffer(new byte[3110400]);
             contadorFrame = 0;
+            yaentro = false;
             cammov.setPreviewCallbackWithBuffer(new Camera.PreviewCallback() {
                 @Override
                 public void onPreviewFrame(byte[] data, Camera camera) {
@@ -345,7 +348,8 @@ public class CameraActivity extends AppCompatActivity {
                     boolean detected = detector.detect(rgb, 1152, 648);
 //                    System.out.println("----->Bool:  " + detected + "  " + contadorFrame);
 
-                    if (detected && contadorFrame > 1) {
+
+                    if (detected && contadorFrame > 1 && !yaentro) {
 //                    cammov.stopPreview();
                         cammov.release();
 //                    serv.iniciarStreaming();
@@ -355,6 +359,7 @@ public class CameraActivity extends AppCompatActivity {
                         emitiendo = true;
                         camRelease = true;
                         btn_video.setBackgroundColor(0xAA009900); // Botón verde
+                        yaentro = true;
                     }
                     contadorFrame = 2;
                 }
