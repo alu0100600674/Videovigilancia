@@ -78,10 +78,6 @@ public class Servidor extends Activity implements RtspClient.Callback,
     }
 
     public void iniciar(SurfaceView sView, Context context){
-//        System.out.println(stream_url);
-//        System.out.println(publisher_user);
-//        System.out.println(publisher_pass);
-
         surfaceView = sView;
 
         session = SessionBuilder.getInstance()
@@ -106,18 +102,10 @@ public class Servidor extends Activity implements RtspClient.Callback,
         Pattern uri = Pattern.compile("rtsp://(.+):(\\d+)/(.+)");
         Matcher m = uri.matcher(stream_url);
         m.find();
-//        String ip, port, path;
+
         ip = m.group(1);
         port = m.group(2);
         path = m.group(3);
-
-//        System.out.println(ip);
-//        System.out.println(port);
-//        System.out.println(path);
-//
-//        System.out.println(web_url);
-//        System.out.println(stream_url);
-
 
         client.setCredentials(publisher_user, publisher_pass);
         client.setServerAddress(ip, Integer.parseInt(port));

@@ -63,14 +63,10 @@ public class RobotSocket {
             public void run() {
                 try {
                     serverSocket = new ServerSocket(puerto);
-//                    serverSocket = new ServerSocket();
-//                    serverSocket.setReuseAddress(true);
-//                    serverSocket.bind(new InetSocketAddress(puerto));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
-//                while(true){
                 while(socketAbierto){
 
                     if(serverSocket == null) break;
@@ -80,15 +76,6 @@ public class RobotSocket {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
-//                    try {
-//                        DIS = new DataInputStream(clientSocket.getInputStream());
-//                        DOS = new DataOutputStream(clientSocket.getOutputStream());
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-
-//                    if(clientSocket == null) break;
 
                     try {
                         BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
@@ -179,22 +166,6 @@ public class RobotSocket {
                                 e.printStackTrace();
                             }
                         }
-
-//                        if (DIS != null) {
-//                            try {
-//                                DIS.close();
-//                            } catch (IOException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//
-//                        if (DOS != null) {
-//                            try {
-//                                DOS.close();
-//                            } catch (IOException e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
                     }
                 }
             }
@@ -202,15 +173,12 @@ public class RobotSocket {
     }
 
     public void abrirSocket(){
-//        threadSocket.start();
-
         if(threadSocket.getState() == Thread.State.NEW){
             threadSocket.start();
         }
     }
 
     public void cerrarSocket(){
-//        threadSocket.stop();
         try {
             clientSocket.close();
         } catch (IOException e) {
@@ -226,11 +194,6 @@ public class RobotSocket {
 
     public void cerrarSocket2(){
         socketAbierto = false;
-//        try {
-//            serverSocket.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
     }
 
     public void setRobot(Robot r){

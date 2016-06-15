@@ -102,14 +102,6 @@ public class GlobalClass extends Application{
 
         // Clave del servidor
         publicKey_server = Certificado.leerPublicaSerializada(Environment.getExternalStorageDirectory().getAbsolutePath() + "/cert/serverpub.ser");
-        PrivateKey tmp = Certificado.leerPrivadaSerializada(Environment.getExternalStorageDirectory().getAbsolutePath() + "/cert/serverpri.ser");
-
-        System.out.println("-------- CLIENTE --------");
-        System.out.println(publicKey);
-        System.out.println(privateKey);
-        System.out.println("-------- SERVIDOR -------");
-        System.out.println(publicKey_server);
-        System.out.println(tmp);
 
         // Generar la compartida
         clave_compartida = Certificado.generarClaveCompartida(privateKey, publicKey_server);

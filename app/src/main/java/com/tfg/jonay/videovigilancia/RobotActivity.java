@@ -89,10 +89,6 @@ public class RobotActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        System.out.println("Listado:");
-//        for(int i = 0; i < lista_devices.size(); i++){
-//            System.out.println(lista_devices.get(i).getName());
-//        }
     }
 
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {

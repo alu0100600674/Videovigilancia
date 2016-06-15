@@ -17,27 +17,7 @@ public class Robot {
 
     private Brick ev3;
 
-//    private Thread threadRobot;
-//    private BluetoothDevice btDevice;
-//    private BluetoothSocket btSocket;
-
-    public Robot(){
-//        ev3 = new Brick(new BluetoothCommunication());
-//        try {
-//            ev3.connect();
-//            ev3.directCommand.playTone(100,(short)2500,(short)1000);
-//        } catch (Exception e) {
-////            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-//            e.printStackTrace();
-//        }
-//
-//        try {
-//            ev3.directCommand.startMotor(OutputPort.B);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-    }
+    public Robot(){}
 
     public void conectar(){
         ev3 = new Brick(new BluetoothCommunication());
