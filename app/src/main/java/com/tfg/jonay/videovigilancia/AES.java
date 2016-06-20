@@ -29,7 +29,7 @@ public enum AES {
     public static String cifrar(String msg, String clave) {
         try {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-            cipher.init(Cipher.ENCRYPT_MODE, makeKey("HfnJXoEhzeG82SvG28P1eQ=="), makeIv());
+            cipher.init(Cipher.ENCRYPT_MODE, makeKey(clave), makeIv());
             return Base64.encodeBytes(cipher.doFinal(msg.getBytes()));
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -52,7 +52,7 @@ public enum AES {
         String decrypted = "";
         try {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-            cipher.init(Cipher.DECRYPT_MODE, makeKey("HfnJXoEhzeG82SvG28P1eQ=="), makeIv());
+            cipher.init(Cipher.DECRYPT_MODE, makeKey(clave), makeIv());
             decrypted = new String(cipher.doFinal(Base64.decode(msg_cif)));
         } catch (Exception e) {
             throw new RuntimeException(e);
