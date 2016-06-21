@@ -172,7 +172,7 @@ public class RobotSocket {
                                 globales.getCamAct().startCamaraStreaming();
                                 break;
                             case "robocamstopstreaming":
-                                globales.getCamAct().stopCamara();
+                                globales.getCamAct().stopCamara2();
                                 break;
                             case "robocamstartmov":
                                 globales.getCamAct().startCamara2();

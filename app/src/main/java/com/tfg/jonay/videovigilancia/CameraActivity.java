@@ -541,4 +541,23 @@ public class CameraActivity extends AppCompatActivity {
         flash = false;
     }
 
+    public void stopCamara2(){
+        // Parar streaming
+        serv.parar();
+        Request.streamOffline(serv.getMacAddress(), serv.getRequestQueue(), serv.getWebURL());
+
+        // Parar detección de movimiento
+        if(!camRelease){
+            cammov.release();
+        }
+
+        emitiendo = false;
+        camRelease = true;
+
+        // Cambiar color del botón a rojo
+        encendida = false;
+
+        flash = false;
+    }
+
 }
