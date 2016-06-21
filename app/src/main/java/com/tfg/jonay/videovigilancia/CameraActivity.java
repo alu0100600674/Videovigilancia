@@ -264,6 +264,10 @@ public class CameraActivity extends AppCompatActivity {
 
     /* Solo Streaming */
     public void startCamaraStreaming() throws IOException{
+        if(cammov != null){
+            cammov.release();
+        }
+        serv.iniciar(surfaceView, getApplicationContext());
         startStreaming();
     }
 
@@ -398,6 +402,90 @@ public class CameraActivity extends AppCompatActivity {
         encendida = true;
     }
 
+    public void startCamara2() throws IOException{
+        // Si la camara y el streaming estan descativados
+        // Si la camara esta encendida
+        // Si el streaming esta encendido
+
+        System.out.println("Emitiendo: " + serv.getClient().isStreaming());
+
+//        if(camRelease && !emitiendo && !serv.getClient().isStreaming()){
+        if(camRelease && !emitiendo){
+            System.out.println("Dos desactivados");
+            cammov = Camera.open();
+            cammov.setDisplayOrientation(90);
+
+            Camera.Parameters param = cammov.getParameters();
+            param.setPreviewFrameRate(30);
+            param.setPreviewFpsRange(15000, 30000);
+            cammov.setParameters(param);
+            try {
+                cammov.setPreviewDisplay(surfaceView.getHolder());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            cammov.addCallbackBuffer(new byte[3110400]);
+            contadorFrame = 0;
+            yaentro = false;
+            cammov.setPreviewCallbackWithBuffer(new Camera.PreviewCallback() {
+                @Override
+                public void onPreviewFrame(byte[] data, Camera camera) {
+                    contadorFrame++;
+
+                    cammov.addCallbackBuffer(data);
+                    int[] rgb = ImageProcessing.decodeYUV420SPtoRGB(data, 1152, 648);
+                    IMotionDetection detector = new RgbMotionDetection();
+                    boolean detected = detector.detect(rgb, 1152, 648);
+//                    System.out.println("----->Bool:  " + detected + "  " + contadorFrame);
+
+
+                    if (detected && contadorFrame > 1 && !yaentro) {
+//                    cammov.stopPreview();
+                        cammov.release();
+//                    serv.iniciarStreaming();
+                        notif.enviarSmsMovimiento();
+                        serv.iniciar(surfaceView, getApplicationContext());
+                        startStreaming();
+                        emitiendo = true;
+                        camRelease = true;
+                        yaentro = true;
+                    }
+                    contadorFrame = 2;
+                }
+            });
+            cammov.startPreview();
+            camRelease = false;
+        }
+
+//        else if(!emitiendo && cammov != null && !serv.getClient().isStreaming()){
+//            System.out.println("camara activada y sin emitir");
+//            cammov.stopPreview();
+//            cammov.release();
+//            camRelease = true;
+//
+////            cammov = null;
+//        }
+//
+//        else if(emitiendo){
+//            System.out.println("camara desactivada y emitiendo");
+////            startStreaming();
+//            serv.pararStreaming();
+//            emitiendo = false;
+//        }
+//
+//
+//
+//
+//        if(!encendida){
+//            btn_video.setBackgroundColor(0xAA009900);
+//        }else{
+//            btn_video.setBackgroundColor(0xAAFF0000);
+//        }
+//        encendida = !encendida;
+
+        encendida = true;
+    }
+
     private void startStreaming(){
 //        cammov.release();
         serv.iniciarStreaming();
@@ -430,6 +518,27 @@ public class CameraActivity extends AppCompatActivity {
             btn_flash.setBackgroundColor(0xAAFF0000);
         }
         flash = !flash;
+    }
+
+    public void stopCamara(){
+        // Parar streaming
+        serv.parar();
+        Request.streamOffline(serv.getMacAddress(), serv.getRequestQueue(), serv.getWebURL());
+
+        // Parar detección de movimiento
+        if(!camRelease){
+            cammov.release();
+        }
+
+        emitiendo = false;
+        camRelease = true;
+
+        // Cambiar color del botón a rojo
+        btn_video.setBackgroundColor(0xAAFF0000);
+        encendida = false;
+
+        btn_flash.setBackgroundColor(0xAAFF0000);
+        flash = false;
     }
 
 }

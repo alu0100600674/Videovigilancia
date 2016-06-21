@@ -168,6 +168,15 @@ public class RobotSocket {
 //                                globales.getCamAct().startFlash();
                                 serv.iniciarFlash();
                                 break;
+                            case "robocamstartstreaming":
+                                globales.getCamAct().startCamaraStreaming();
+                                break;
+                            case "robocamstopstreaming":
+                                globales.getCamAct().stopCamara();
+                                break;
+                            case "robocamstartmov":
+                                globales.getCamAct().startCamara2();
+                                break;
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
