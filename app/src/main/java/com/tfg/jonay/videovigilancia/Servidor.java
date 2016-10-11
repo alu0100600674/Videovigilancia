@@ -93,7 +93,7 @@ public class Servidor extends Activity implements RtspClient.Callback,
                 .setAudioQuality(new AudioQuality(8000, 16000))
                 .setVideoEncoder(SessionBuilder.VIDEO_H264)
 //                .setVideoQuality(new VideoQuality(320,240,20,500000))
-                .setVideoQuality(new VideoQuality(1280, 720, 120, 500000))
+//                .setVideoQuality(new VideoQuality(1280, 720, 120, 500000))
                 .build();
 
         surfaceView.getHolder().addCallback(this);
