@@ -68,4 +68,5 @@
     <string name="msg_eliminado">Ha sido eliminado de la lista de notificaciones.</string>
     <string name="msg_movimiento_parte1">Movimiento detectado el día</string>
     <string name="msg_movimiento_parte2">a las</string>
+    <string name="introduce_numero">Introduce número</string>
 </resources>
