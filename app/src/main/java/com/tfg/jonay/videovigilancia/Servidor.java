@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
@@ -84,17 +85,31 @@ public class Servidor extends Activity implements RtspClient.Callback,
 
         surfaceView = sView;
 
-        session = SessionBuilder.getInstance()
-                .setCallback(this)
-                .setSurfaceView(surfaceView)
-                .setPreviewOrientation(90)
-                .setContext(context)
-                .setAudioEncoder(SessionBuilder.AUDIO_AAC)
-                .setAudioQuality(new AudioQuality(8000, 16000))
-                .setVideoEncoder(SessionBuilder.VIDEO_H264)
-//                .setVideoQuality(new VideoQuality(320,240,20,500000))
-//                .setVideoQuality(new VideoQuality(1280, 720, 120, 500000))
-                .build();
+        if(Build.VERSION.RELEASE.startsWith("6")) {
+            session = SessionBuilder.getInstance()
+                    .setCallback(this)
+                    .setSurfaceView(surfaceView)
+                    .setPreviewOrientation(90)
+                    .setContext(context)
+                    .setAudioEncoder(SessionBuilder.AUDIO_AAC)
+                    .setAudioQuality(new AudioQuality(8000, 16000))
+                    .setVideoEncoder(SessionBuilder.VIDEO_H264)
+//                    .setVideoQuality(new VideoQuality(320,240,20,500000))
+//                    .setVideoQuality(new VideoQuality(1280, 720, 120, 500000))
+                    .build();
+        } else {
+            session = SessionBuilder.getInstance()
+                    .setCallback(this)
+                    .setSurfaceView(surfaceView)
+                    .setPreviewOrientation(90)
+                    .setContext(context)
+                    .setAudioEncoder(SessionBuilder.AUDIO_AAC)
+                    .setAudioQuality(new AudioQuality(8000, 16000))
+                    .setVideoEncoder(SessionBuilder.VIDEO_H264)
+//                    .setVideoQuality(new VideoQuality(320,240,20,500000))
+                    .setVideoQuality(new VideoQuality(1280, 720, 120, 500000))
+                    .build();
+        }
 
         surfaceView.getHolder().addCallback(this);
 
