@@ -27,6 +27,8 @@ import java.util.regex.Pattern;
 public class Servidor extends Activity implements RtspClient.Callback,
         Session.Callback, SurfaceHolder.Callback{
 
+    private String nombre_camara;
+
     private String stream_url;
     private String publisher_user;
     private String publisher_pass;
@@ -60,6 +62,7 @@ public class Servidor extends Activity implements RtspClient.Callback,
         publisher_user = datos[1];
         publisher_pass = datos[2];
         web_url = datos[3];
+        nombre_camara = datos[4];
     }
 
     public void inicializarRequestQueue(Context ctx){
@@ -144,7 +147,7 @@ public class Servidor extends Activity implements RtspClient.Callback,
             System.out.println("iniciar");
             session.startPreview();
             client.startStream();
-            Request.newUser(ctx, macAddress, requestQueue, ip + ":" + port + "/" + path + "/", web_url, ip_actual);
+            Request.newUser(ctx, macAddress, requestQueue, ip + ":" + port + "/" + path + "/", web_url, ip_actual, nombre_camara);
 
         }else{
             System.out.println("parar");
@@ -213,6 +216,14 @@ public class Servidor extends Activity implements RtspClient.Callback,
         return requestQueue;
     }
 
+    public String getNombreCamara(){
+        return nombre_camara;
+    }
+
+    public void setNombreCamara(String nombre){
+        nombre_camara = nombre;
+    }
+
     @Override
     public void onBitrateUpdate(long bitrate) {
 
@@ -235,7 +246,7 @@ public class Servidor extends Activity implements RtspClient.Callback,
 
     @Override
     public void onSessionStarted() {
-        Request.streamOnline(ctx, macAddress, requestQueue, web_url, ip_actual, ip + ":" + port + "/" + path + "/");
+        Request.streamOnline(ctx, macAddress, requestQueue, web_url, ip_actual, ip + ":" + port + "/" + path + "/", nombre_camara);
         System.out.println("start session");
     }
 

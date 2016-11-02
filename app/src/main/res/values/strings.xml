@@ -25,6 +25,7 @@
     <string name="robot_blu">Para utilizar el robot debe activar el Bluetooth.</string>
 
     <!-- Configurar servidor -->
+    <string name="serv_nombrecamara">Nombre de la cámara:</string>
     <string name="serv_urlweb">URL servidor web:</string>
     <string name="serv_url">URL servidor streaming:</string>
     <string name="usuario">Usuario:</string>

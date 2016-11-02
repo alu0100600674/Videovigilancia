@@ -20,8 +20,22 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/serv_text_nombrecamara"
+            android:text="@string/serv_nombrecamara"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/serv_input_nombrecamara"
+            android:layout_below="@+id/serv_text_nombrecamara"
+            android:layout_marginBottom="15dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/serv_text_urlweb"
-            android:text="@string/serv_urlweb"/>
+            android:text="@string/serv_urlweb"
+            android:layout_below="@id/serv_input_nombrecamara"/>
 
         <EditText
             android:layout_width="match_parent"

@@ -50,4 +50,5 @@
     <string name="pregunta_habilitar_destino">Enable the destination</string>
     <string name="introduce_numero">Enter number</string>
     <string name="app_subtitle">Secure Application of Video Surveillance</string>
+    <string name="serv_nombrecamara">Camera name:</string>
 </resources>

@@ -67,13 +67,14 @@ public class Request {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public static void newUser(Context ctx, String MAC, RequestQueue requestQueue, String stream_short_url, String web_url, String ip_actual) {
+    public static void newUser(Context ctx, String MAC, RequestQueue requestQueue, String stream_short_url, String web_url, String ip_actual, String nombrecam) {
         GlobalClass globales = (GlobalClass) ctx.getApplicationContext();
 
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("name", AES.cifrar(MAC, globales.getClaveCompartida()));
         params.put("server", AES.cifrar(stream_short_url, globales.getClaveCompartida()));
         params.put("ipcamara", AES.cifrar(ip_actual, globales.getClaveCompartida()));
+        params.put("nombrecamara", AES.cifrar(nombrecam, globales.getClaveCompartida()));
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(com.android.volley.Request.Method.POST, web_url + "/camara", new JSONObject(params),
                 new com.android.volley.Response.Listener<JSONObject>() {
@@ -164,13 +165,14 @@ public class Request {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public static void streamOnline(Context ctx, String MAC, RequestQueue requestQueue, String web_url, String ip_actual, String stream_short_url) {
+    public static void streamOnline(Context ctx, String MAC, RequestQueue requestQueue, String web_url, String ip_actual, String stream_short_url, String nombrecam) {
         GlobalClass globales = (GlobalClass) ctx.getApplicationContext();
 
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("name", AES.cifrar(MAC, globales.getClaveCompartida()));
         params.put("ipcamara", AES.cifrar(ip_actual, globales.getClaveCompartida()));
         params.put("server", AES.cifrar(stream_short_url, globales.getClaveCompartida()));
+        params.put("nombrecamara", AES.cifrar(nombrecam, globales.getClaveCompartida()));
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(com.android.volley.Request.Method.PUT, web_url + "/online/" + MAC, new JSONObject(params),
                 new com.android.volley.Response.Listener<JSONObject>() {
